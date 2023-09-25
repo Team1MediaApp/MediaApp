@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MypageFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mypage_const_out"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/mypage_img_backgroundprofile"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:alpha="0.5"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_mypage_backgroundprofile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.25"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/mypage_btn_modify_background_profile_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:alpha="0.5"
+            android:background="@drawable/mypage_profile_image_circle_kit"
+            android:padding="6dp"
+            android:src="@drawable/ic_mypage_pen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/appCompatImageView2"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:background="@drawable/mypage_profile_image_circle_kit"
+            android:padding="15dp"
+            android:src="@drawable/img_mypage_profile"
+            app:layout_constraintBottom_toBottomOf="@+id/mypage_img_backgroundprofile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_img_backgroundprofile" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/mypage_txt_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="닉네임"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/appCompatImageView2"
+            app:layout_constraintStart_toStartOf="@+id/appCompatImageView2"
+            app:layout_constraintTop_toBottomOf="@+id/appCompatImageView2" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/mypage_txt_status_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="상태메세지를 입력해주세요."
+            android:textColor="#7E7E7E"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/mypage_txt_name"
+            app:layout_constraintStart_toStartOf="@+id/mypage_txt_name"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_txt_name" />
+
+        <View
+            android:id="@+id/mypage_view_hlinetop"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            android:background="#EDEDED"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_txt_status_message"
+            app:layout_constraintWidth_percent="0.75" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/mypage_img_bell"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="25dp"
+            android:src="@drawable/img_mypage_bell"
+            app:layout_constraintBottom_toTopOf="@+id/mypage_view_hlinebottom"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_view_hlinetop" />
+
+        <View
+            android:id="@+id/mypage_view_hlinebottom"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="60dp"
+            android:background="#EDEDED"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_view_hlinetop"
+            app:layout_constraintWidth_percent="0.75" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/mypage_txt_notification_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="찜한 채널 알림 설정"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/mypage_view_hlinebottom"
+            app:layout_constraintStart_toEndOf="@+id/mypage_img_bell"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_view_hlinetop" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="40dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="32dp"
+            android:src="@drawable/ic_mypage_button_on"
+            app:layout_constraintBottom_toBottomOf="@+id/mypage_txt_notification_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/mypage_txt_notification_text" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</FrameLayout>
