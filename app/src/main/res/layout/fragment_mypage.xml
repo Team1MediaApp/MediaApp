@@ -4,8 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MypageFragment">
-
+    tools:context=".Fragment_mypage">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mypage_const_out"
         android:layout_width="match_parent"
@@ -93,16 +95,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mypage_view_hlinetop" />
 
-        <View
-            android:id="@+id/mypage_view_hlinebottom"
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:layout_marginTop="60dp"
-            android:background="#EDEDED"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mypage_view_hlinetop"
-            app:layout_constraintWidth_percent="0.75" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/mypage_txt_notification_text"
@@ -125,10 +117,86 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/mypage_txt_notification_text" />
 
+        <View
+            android:id="@+id/mypage_view_hlinebottom"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="60dp"
+            android:background="#EDEDED"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_view_hlinetop"
+            app:layout_constraintWidth_percent="0.75" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/mypage_txt_bookmarker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:text="내가 찜한 영상"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/mypage_view_hlinebottom" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/mypage_btn_my_bookmarker"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="32dp"
+            android:src="@drawable/ic_mypage_arrowdown"
+            app:layout_constraintBottom_toBottomOf="@+id/mypage_txt_bookmarker"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/mypage_txt_bookmarker" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mypage_recyclerview_my_bookmarker"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_txt_bookmarker"
+            android:layout_marginTop="20dp" />
+
+<!--        ▲리사이클러뷰의 아이템을 가로로 배치하려면 .kt 파일에 코드작성을 통해 바꿔야한다.-->
+        
+<!--        친구가 찜한영상의 경우, 사실 현재 구현불가능한 기능이라 목록으로만 남겨두었다.-->
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/mypage_txt_friend_bookmarker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:text="친구가 찜한 영상"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_recyclerview_my_bookmarker" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/mypage_btn_friend_bookmarker"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="32dp"
+            android:src="@drawable/ic_mypage_arrowdown"
+            app:layout_constraintBottom_toBottomOf="@+id/mypage_txt_friend_bookmarker"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/mypage_txt_friend_bookmarker" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mypage_recyclerview_friend_bookmarker"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_txt_friend_bookmarker"
+            android:layout_marginTop="20dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
+</ScrollView>
 
 
 </FrameLayout>
