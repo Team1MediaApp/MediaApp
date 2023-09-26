@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import com.example.mediaapp.databinding.MypageDialogModifyFragmentBinding
 
 
-class Mypage_dialog_modify_Fragment : Fragment() {
+class MypageDialogModifyFragment : Fragment() {
     private var _binding: MypageDialogModifyFragmentBinding? = null
     private val binding get() = _binding!!
 
