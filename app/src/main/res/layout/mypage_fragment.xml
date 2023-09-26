@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Mypage_Fragment">
+    tools:context=".MypageFragment">
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -19,7 +19,7 @@
             android:layout_height="0dp"
             android:alpha="0.5"
             android:scaleType="centerCrop"
-            android:src="@drawable/img_mypage_backgroundprofile"
+            android:src="@drawable/mypage_backgroundprofile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.25"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,9 +32,9 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:alpha="0.5"
-            android:background="@drawable/mypage_profile_image_circle_kit"
+            android:background="@drawable/kit_mypage_profile_image_circle"
             android:padding="6dp"
-            android:src="@drawable/ic_mypage_pen"
+            android:src="@drawable/mypage_pen"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,9 +42,9 @@
             android:id="@+id/mypage_img_profile"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:background="@drawable/mypage_profile_image_circle_kit"
+            android:background="@drawable/kit_mypage_profile_image_circle"
             android:padding="15dp"
-            android:src="@drawable/img_mypage_profile"
+            android:src="@drawable/mypage_profile"
             app:layout_constraintBottom_toBottomOf="@+id/mypage_img_backgroundprofile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -90,12 +90,13 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="25dp"
-            android:src="@drawable/img_mypage_bell"
+            android:src="@drawable/mypage_bell"
             app:layout_constraintBottom_toTopOf="@+id/mypage_view_hlinebottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mypage_view_hlinetop" />
 
-
+<!--▽아래의 기능은 api에 따라 실현 불가능 할 수도 있다. 일단 찜한 채널을 볼 수 있는 다이얼로그는 따로 만들어 두지 않았다.-->
+<!--        왜냐면 실현가능한지 몰라서.....-->
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/mypage_txt_notification_text"
             android:layout_width="wrap_content"
@@ -112,7 +113,7 @@
             android:layout_width="40dp"
             android:layout_height="0dp"
             android:layout_marginEnd="32dp"
-            android:src="@drawable/ic_mypage_button_on"
+            android:src="@drawable/mypage_button_on"
             app:layout_constraintBottom_toBottomOf="@+id/mypage_txt_notification_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/mypage_txt_notification_text" />
@@ -145,7 +146,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginEnd="32dp"
-            android:src="@drawable/ic_mypage_arrowdown"
+            android:src="@drawable/mypage_arrowdown"
             app:layout_constraintBottom_toBottomOf="@+id/mypage_txt_bookmarker"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/mypage_txt_bookmarker" />
@@ -180,7 +181,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginEnd="32dp"
-            android:src="@drawable/ic_mypage_arrowdown"
+            android:src="@drawable/mypage_arrowdown"
             app:layout_constraintBottom_toBottomOf="@+id/mypage_txt_friend_bookmarker"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/mypage_txt_friend_bookmarker" />

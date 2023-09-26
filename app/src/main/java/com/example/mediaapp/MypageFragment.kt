@@ -13,10 +13,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [Mypage_dialog_modify_Fragment.newInstance] factory method to
+ * Use the [MypageFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class Mypage_dialog_modify_Fragment : Fragment() {
+class MypageFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -34,7 +34,7 @@ class Mypage_dialog_modify_Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mypage_dialog_modify, container, false)
+        return inflater.inflate(R.layout.mypage_fragment, container, false)
     }
 
     companion object {
@@ -44,12 +44,12 @@ class Mypage_dialog_modify_Fragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment Fragment_mypage_dialog_modify.
+         * @return A new instance of fragment MypageFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            Mypage_dialog_modify_Fragment().apply {
+            MypageFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
