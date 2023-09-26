@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MediaApp</string>
     <string name="search_item_channel_img_desc">채널 이미지</string>
+    <string name="search_item_video_img_desc">search item 비디오 썸네일\n</string>
 </resources>
