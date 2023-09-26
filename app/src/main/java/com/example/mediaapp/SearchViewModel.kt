@@ -16,15 +16,15 @@ class SearchViewModel(
     private val _searchResult = MutableLiveData<SearchResponse>()
     val searchResult: LiveData<SearchResponse> get() = _searchResult
 
-//    fun searchYoutube(query: String, maxResult:Int) = viewModelScope.launch(Dispatchers.IO){
-//        try {
-//            val response:Response<SearchResponse> = searchRepository.search(query,"snippet","any",maxResult,"video")
-//            if (response.isSuccessful){
-//                response.body()?.let { body ->
-//                    _searchResult.postValue(body)
-//                }
-//            } else { }
-//        }catch (e: Exception){
-//        }
-//    }
+    fun searchYoutube(query: String, maxResult:Int) = viewModelScope.launch(Dispatchers.IO){
+        try {
+            val response:Response<SearchResponse> = searchRepository.search(Constants.API_KEY,query,"mostPopular","ko-KR",3,"KR")
+            if (response.isSuccessful){
+                response.body()?.let { body ->
+                    _searchResult.postValue(body)
+                }
+            } else { }
+        }catch (e: Exception){
+        }
+    }
 }

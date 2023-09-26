@@ -1,21 +1,24 @@
 package com.example.mediaapp.data.model
 
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import com.google.gson.annotations.SerializedName
 
-@JsonClass(generateAdapter = true)
 data class SearchResponse(
-    @field:Json(name = "etag")
+    @SerializedName("etag")
     val etag: String,
-    @field:Json(name = "items")
+    @SerializedName("items")
     val items: List<Item>,
-    @field:Json(name = "kind")
+    @SerializedName("kind")
     val kind: String,
-    @field:Json(name = "nextPageToken")
+    @SerializedName("nextPageToken")
     val nextPageToken: String,
-    @field:Json(name = "pageInfo")
-    val pageInfo: PageInfo,
-    @field:Json(name = "regionCode")
-    val regionCode: String
+    @SerializedName("pageInfo")
+    val pageInfo: PageInfo
+)
+
+data class PageInfo(
+    @SerializedName("resultsPerPage")
+    val resultsPerPage: Int,
+    @SerializedName("totalResults")
+    val totalResults: Int
 )
