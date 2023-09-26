@@ -4,8 +4,7 @@ import com.example.mediaapp.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.create
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitInstance {
@@ -28,12 +27,12 @@ object RetrofitInstance {
     private val searchRetrofit: Retrofit by lazy {
         Retrofit.Builder()
             .baseUrl("https://youtube.googleapis.com/youtube/v3/")
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
     }
 
-    val api: SearchInterface by lazy {
-        searchRetrofit.create(SearchInterface::class.java)
+    val api: VideoInterface by lazy {
+        searchRetrofit.create(VideoInterface::class.java)
     }
 }
