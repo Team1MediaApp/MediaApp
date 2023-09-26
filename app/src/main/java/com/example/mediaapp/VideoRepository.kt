@@ -1,11 +1,12 @@
 package com.example.mediaapp
 
-import com.example.mediaapp.data.model.SearchResponse
+import com.example.mediaapp.data.model.video.SearchResponse
 import retrofit2.Response
 
-interface SearchRepository {
+interface VideoRepository {
     suspend fun search(
         key: String,
+        part: String,
         q : String,
         chart : String,
         hl : String,
