@@ -8,11 +8,11 @@ class SearchRepositoryImpl:SearchRepository {
     override suspend fun search(
         key : String,
         q: String,
-        part: String,
-        channelType: String,
+        chart: String,
+        hl: String,
         maxResults: Int,
-        type: String
+        regionCode: String
     ): Response<SearchResponse> {
-        return api.searchYoutube(key,q, part, channelType, maxResults, type)
+        return api.searchYoutube(key,q, chart, hl, maxResults, regionCode)
     }
 }

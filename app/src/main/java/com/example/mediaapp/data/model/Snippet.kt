@@ -1,25 +1,32 @@
 package com.example.mediaapp.data.model
 
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import com.google.gson.annotations.SerializedName
 
-@JsonClass(generateAdapter = true)
 data class Snippet(
-    @field:Json(name = "channelId")
+    @SerializedName("categoryId")
+    val categoryId: String,
+    @SerializedName("channelId")
     val channelId: String,
-    @field:Json(name = "channelTitle")
+    @SerializedName("channelTitle")
     val channelTitle: String,
-    @field:Json(name = "description")
+    @SerializedName("description")
     val description: String,
-    @field:Json(name = "liveBroadcastContent")
+    @SerializedName("liveBroadcastContent")
     val liveBroadcastContent: String,
-    @field:Json(name = "publishTime")
-    val publishTime: String,
-    @field:Json(name = "publishedAt")
+    @SerializedName("localized")
+    val localized: Localized,
+    @SerializedName("publishedAt")
     val publishedAt: String,
-    @field:Json(name = "thumbnails")
+    @SerializedName("thumbnails")
     val thumbnails: Thumbnails,
-    @field:Json(name = "title")
+    @SerializedName("title")
+    val title: String
+)
+
+data class Localized(
+    @SerializedName("description")
+    val description: String,
+    @SerializedName("title")
     val title: String
 )

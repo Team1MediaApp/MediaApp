@@ -7,9 +7,9 @@ interface SearchRepository {
     suspend fun search(
         key: String,
         q : String,
-        part: String,
-        channelType: String,
+        chart : String,
+        hl : String,
         maxResults: Int,
-        type: String,
+        regionCode: String,
     ): Response<SearchResponse>
 }

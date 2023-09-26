@@ -5,18 +5,17 @@ import com.example.mediaapp.Constants
 import com.example.mediaapp.data.model.SearchResponse
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.Headers
 import retrofit2.http.Query
 
 interface SearchInterface {
 
-    @GET("search")
+    @GET("videos")
     suspend fun searchYoutube(
         @Query("key") key: String = Constants.API_KEY,
         @Query("q") q :String,
-        @Query("part") part:String,
-        @Query("channelType") channelType:String,
+        @Query("chart") chart:String,
+        @Query("hl") hl:String,
         @Query("maxResults")maxResults:Int,
-        @Query("type")type:String
-    ): Response<SearchResponse>
+        @Query("regionCode")regionCode:String,
+    ) : Response<SearchResponse>
 }

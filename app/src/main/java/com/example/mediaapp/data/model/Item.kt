@@ -1,17 +1,15 @@
 package com.example.mediaapp.data.model
 
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import com.google.gson.annotations.SerializedName
 
-@JsonClass(generateAdapter = true)
 data class Item(
-    @field:Json(name = "etag")
+    @SerializedName("etag")
     val etag: String,
-    @field:Json(name = "id")
-    val id: Id,
-    @field:Json(name = "kind")
+    @SerializedName("id")
+    val id: String,
+    @SerializedName("kind")
     val kind: String,
-    @field:Json(name = "snippet")
+    @SerializedName("snippet")
     val snippet: Snippet
 )

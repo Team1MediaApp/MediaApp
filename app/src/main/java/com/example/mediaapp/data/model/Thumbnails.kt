@@ -1,15 +1,62 @@
 package com.example.mediaapp.data.model
 
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import com.google.gson.annotations.SerializedName
 
-@JsonClass(generateAdapter = true)
 data class Thumbnails(
-    @field:Json(name = "default")
+    @SerializedName("default")
     val default: Default,
-    @field:Json(name = "high")
+    @SerializedName("high")
     val high: High,
-    @field:Json(name = "medium")
-    val medium: Medium
+    @SerializedName("maxres")
+    val maxres: Maxres,
+    @SerializedName("medium")
+    val medium: Medium,
+    @SerializedName("standard")
+    val standard: Standard
+)
+
+data class Standard(
+    @SerializedName("height")
+    val height: Int,
+    @SerializedName("url")
+    val url: String,
+    @SerializedName("width")
+    val width: Int
+)
+
+data class High(
+    @SerializedName("height")
+    val height: Int,
+    @SerializedName("url")
+    val url: String,
+    @SerializedName("width")
+    val width: Int
+)
+
+data class Medium(
+    @SerializedName("height")
+    val height: Int,
+    @SerializedName("url")
+    val url: String,
+    @SerializedName("width")
+    val width: Int
+)
+
+data class Maxres(
+    @SerializedName("height")
+    val height: Int,
+    @SerializedName("url")
+    val url: String,
+    @SerializedName("width")
+    val width: Int
+)
+
+data class Default(
+    @SerializedName("height")
+    val height: Int,
+    @SerializedName("url")
+    val url: String,
+    @SerializedName("width")
+    val width: Int
 )
