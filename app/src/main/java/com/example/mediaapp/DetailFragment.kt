@@ -8,20 +8,18 @@ import android.view.ViewGroup
 import com.example.mediaapp.databinding.DetailFragmentBinding
 
 class DetailFragment : Fragment() {
-    private var _binding : DetailFragmentBinding ?= null
+    private var _binding: DetailFragmentBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _binding = DetailFragmentBinding.inflate(inflater,container,false)
-
-
+    ): View {
+        _binding = DetailFragmentBinding.inflate(layoutInflater)
         return binding.root
     }
-    }
+}
