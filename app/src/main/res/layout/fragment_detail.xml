@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".DetailFragment">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/detail_xml"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/detail_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/mint"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <ImageButton
+            android:id="@+id/detail_btn_back"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/detail_btn_back"
+            android:scaleType="fitXY"
+            android:padding="15dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/detail_view"
+            app:layout_constraintBottom_toBottomOf="@id/detail_view"
+            />
+
+        <TextView
+            android:id="@+id/detail_txt_channel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Channel Name"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="@id/detail_view"
+            app:layout_constraintBottom_toBottomOf="@id/detail_view"
+            app:layout_constraintStart_toEndOf="@id/detail_btn_back"
+            />
+
+        <ImageView
+            android:id="@+id/detail_img_thumnail"
+            android:layout_width="350dp"
+            android:layout_height="200dp"
+            android:background="@drawable/detail_img_thumnail"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detail_view"
+            />
+
+        <TextView
+            android:id="@+id/detail_txt_vidio_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vidio Title"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@id/detail_img_thumnail"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/detail_txt_vidio_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="vidio Detail"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@id/detail_txt_vidio_title"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <Button
+            android:id="@+id/detail_btn_like"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Like"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/mint"
+            android:layout_marginBottom="30dp"
+            android:layout_marginStart="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <Button
+            android:id="@+id/detail_btn_share"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Share"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/mint"
+            android:layout_marginBottom="30dp"
+            android:layout_marginEnd="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
