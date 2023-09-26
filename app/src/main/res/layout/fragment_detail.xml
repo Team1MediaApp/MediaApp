@@ -12,10 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <View
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/detail_view"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
             android:background="@color/mint"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -24,11 +24,11 @@
 
         <ImageButton
             android:id="@+id/detail_btn_back"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/detail_btn_back"
             android:scaleType="fitXY"
-            android:padding="20dp"
+            android:padding="15dp"
             android:background="@android:color/transparent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/detail_view"
