@@ -6,9 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".Mypage_dialog_modify_Fragment">
 
-    <?xml version="1.0" encoding="utf-8"?>
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mypagediamodify_const_out"
         android:layout_width="300dp"
@@ -20,7 +17,7 @@
             android:layout_height="200dp"
             android:alpha="0.5"
             android:scaleType="centerCrop"
-            android:src="@drawable/img_mypage_backgroundprofile"
+            android:src="@drawable/mypage_backgroundprofile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.25"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,11 +27,11 @@
             android:id="@+id/mypagediamodify_btn_background_profile"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@drawable/ic_mypagemodify_changeimage"
-            android:background="@drawable/mypage_profile_image_circle_kit"
-            android:padding="10dp"
-            android:alpha="0.5"
             android:layout_marginTop="50dp"
+            android:alpha="0.5"
+            android:background="@drawable/kit_mypage_profile_image_circle"
+            android:padding="10dp"
+            android:src="@drawable/mypagemodify_changeimage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +41,7 @@
             android:layout_height="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/ic_mypagemodify_x"
+            android:src="@drawable/mypagemodify_x"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,9 +50,9 @@
             android:id="@+id/mypagediamodify_img_profile"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:background="@drawable/mypage_profile_image_circle_kit"
+            android:background="@drawable/kit_mypage_profile_image_circle"
             android:padding="15dp"
-            android:src="@drawable/img_mypage_profile"
+            android:src="@drawable/mypage_profile"
             app:layout_constraintBottom_toBottomOf="@+id/mypagediamodify_img_backgroundprofile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -67,9 +64,9 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:alpha="0.5"
-            android:background="@drawable/mypage_profile_image_circle_kit"
+            android:background="@drawable/kit_mypage_profile_image_circle"
             android:padding="10dp"
-            android:src="@drawable/ic_mypagemodify_changeimage"
+            android:src="@drawable/mypagemodify_changeimage"
             app:layout_constraintBottom_toBottomOf="@+id/mypagediamodify_img_profile"
             app:layout_constraintEnd_toEndOf="@+id/mypagediamodify_img_profile"
             app:layout_constraintStart_toStartOf="@+id/mypagediamodify_img_profile"
@@ -80,33 +77,110 @@
             android:id="@+id/mypagediamodify_txt_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
-            android:text="이름"
+            android:layout_marginTop="24dp"
+            android:text="이  름"
             android:textSize="15sp"
             android:textStyle="bold"
+            android:textColor="#A6A6A6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mypagediamodify_img_profile" />
 
         <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/mypagediamodify_edit_name"
             android:layout_width="200dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="15dp"
-            app:layout_constraintBottom_toTopOf="@+id/mypagediamodify_txt_status_message"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:background="@drawable/kit_mypagemodify_edittext_box"
+            android:hint="이름을 입력해주세요(10자)"
+            android:maxLength="10"
+            android:paddingStart="10dp"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/mypagediamodify_txt_name"
             app:layout_constraintStart_toEndOf="@+id/mypagediamodify_txt_name"
-            app:layout_constraintTop_toTopOf="@+id/mypagediamodify_txt_name" />
+            app:layout_constraintTop_toTopOf="@+id/mypagediamodify_txt_name"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/mypagediamodify_txt_namecount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0/10"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/mypagediamodify_edit_name"
+            app:layout_constraintTop_toBottomOf="@+id/mypagediamodify_edit_name" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/mypagediamodify_txt_status_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:gravity="center"
             android:text="상태\n메세지"
-            android:textColor="#7E7E7E"
-            android:textSize="12sp"
+            android:textSize="15sp"
             android:textStyle="bold"
+            android:textColor="#A6A6A6"
             app:layout_constraintEnd_toEndOf="@+id/mypagediamodify_txt_name"
-            app:layout_constraintStart_toStartOf="@+id/mypagediamodify_txt_name"
             app:layout_constraintTop_toBottomOf="@+id/mypagediamodify_txt_name" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/mypagediamodify_edit_status"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:background="@drawable/kit_mypagemodify_edittext_box"
+            android:hint="상태메세지을 입력해주세요(20자)"
+            android:maxLength="20"
+            android:paddingStart="10dp"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/mypagediamodify_txt_status_message"
+            app:layout_constraintStart_toEndOf="@+id/mypagediamodify_txt_status_message"
+            app:layout_constraintTop_toTopOf="@+id/mypagediamodify_txt_status_message"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/mypagediamodify_txt_statuscount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0/20"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/mypagediamodify_edit_status"
+            app:layout_constraintTop_toBottomOf="@+id/mypagediamodify_edit_status" />
+
+        <!--        내가 찜한 영상 친구에게 공유하기 on/off기능은 보이기만 하되 미구현기능 왜냐면 친구를 만들수 없어-->
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/appCompatTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="35dp"
+            android:text="내가 찜한 영상 친구에게 공유하기"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="#A6A6A6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mypagediamodify_edit_status" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/mypage_button_on"
+            app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/appCompatTextView"
+            app:layout_constraintTop_toTopOf="@+id/appCompatTextView" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView">
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

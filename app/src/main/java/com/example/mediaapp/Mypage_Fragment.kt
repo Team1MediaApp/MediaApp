@@ -34,7 +34,7 @@ class Mypage_Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mypage, container, false)
+        return inflater.inflate(R.layout.mypage_fragment, container, false)
     }
 
     companion object {
