@@ -95,7 +95,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mypage_view_hlinetop" />
 
-
+<!--▽아래의 기능은 api에 따라 실현 불가능 할 수도 있다. 일단 찜한 채널을 볼 수 있는 다이얼로그는 따로 만들어 두지 않았다.-->
+<!--        왜냐면 실현가능한지 몰라서.....-->
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/mypage_txt_notification_text"
             android:layout_width="wrap_content"
