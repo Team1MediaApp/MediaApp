@@ -6,6 +6,6 @@ class NetworkRepository {
     suspend fun searchYoutube(
         query: String
     ) =
-        builder.responseSearch("AIzaSyDeKACf7mU3EjsNsrMNn4-4YikctqgXxzQ", "snippet", query, 3, "KR")
+        builder.responseSearch(Constants.API_KEY, "snippet", query, 3, "KR")
 
 }
