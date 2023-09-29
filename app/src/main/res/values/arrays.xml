@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="category">
+        <item>Film</item>
+        <item>Autos,Vehicles</item>
+        <item>Music</item>
+        <item>Pets,Animals</item>
+        <item>Sports</item>
+        <item>Short Movies</item>
+        <item>Travel, Events</item>
+        <item>Gaming</item>
+        <item>Vlog</item>
+        <item>People, Blogs</item>
+        <item>Comedy</item>
+        <item>Entertainment</item>
+        <item>News, Politics</item>
+        <item>Style</item>
+    </string-array>
+</resources>

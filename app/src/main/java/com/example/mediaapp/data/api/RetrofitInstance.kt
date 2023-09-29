@@ -1,6 +1,7 @@
 package com.example.mediaapp.data.api
 
 import com.example.mediaapp.BuildConfig
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -25,9 +26,12 @@ object RetrofitInstance {
     }
 
     private val searchRetrofit: Retrofit by lazy {
+
+        val gson = GsonBuilder().setLenient().create()
+
         Retrofit.Builder()
             .baseUrl("https://youtube.googleapis.com/youtube/v3/")
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .client(okHttpClient)
             .build()
     }
