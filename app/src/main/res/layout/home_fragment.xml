@@ -13,14 +13,12 @@
 
 
         <androidx.core.widget.NestedScrollView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -61,56 +59,35 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/home_cardView"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/home_rcv_trending_list"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="42dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_height="212dp"
+                    android:layout_marginTop="12dp"
                     app:cardCornerRadius="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/home_tv_trending">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <ImageView
-                            android:id="@+id/home_img_trending"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/img_home_trending_sample1" />
-
-                        <TextView
-                            android:id="@+id/home_tv_trending_count"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom|end"
-                            android:layout_marginEnd="8dp"
-                            android:background="@color/light_grey"
-                            android:text="1/10"
-                            android:textColor="@color/white"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
+                    app:layout_constraintTop_toBottomOf="@+id/home_tv_trending"
+                    tools:listitem="@layout/home_rcv_item_trending"
+                    android:orientation="horizontal"
+                    >
 
 
-                    </FrameLayout>
-                </androidx.cardview.widget.CardView>
+                </androidx.recyclerview.widget.RecyclerView>
 
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/home_rcv_category_list"
                     android:layout_width="match_parent"
-                    android:layout_height="400dp"
+                    android:layout_height="210dp"
                     android:layout_marginTop="4dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/home_cardView"
-                    tools:listitem="@layout/home_rcv_item_view" />
+                    app:layout_constraintTop_toBottomOf="@+id/home_rcv_trending_list"
+                    tools:listitem="@layout/home_rcv_item_category"
+                    android:orientation="vertical"
+                    />
 
 
 
