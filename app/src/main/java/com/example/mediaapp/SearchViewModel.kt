@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.mediaapp.data.model.video.SearchResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.ResponseBody
 import retrofit2.Response
 
 class SearchViewModel(
@@ -27,7 +28,7 @@ class SearchViewModel(
                     Log.d("TAG", "searchYoutube: ${_searchResult.value}")
                 }
             } else {
-                Log.d("TAG", "fail : ViewModel - searchYotube fail")
+                val errorBody: ResponseBody? = response.errorBody()
             }
         }catch (e: Exception){
         }
