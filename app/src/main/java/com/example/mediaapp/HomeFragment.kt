@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mediaapp.data.model.channel.ChItem
 import com.example.mediaapp.util.CategoryId
 import com.example.mediaapp.data.model.video.Item
+import com.example.mediaapp.databinding.DetailFragmentBinding
 import com.example.mediaapp.databinding.HomeFragmentBinding
 import com.example.mediaapp.ui.adapter.HomeCategoryRcvViewAdapter
 import com.example.mediaapp.ui.adapter.HomeChannelRcvAdapter
@@ -24,7 +25,7 @@ import okhttp3.internal.userAgent
 
 class HomeFragment : Fragment() {
 
-    private var _binding:HomeFragmentBinding? = null
+    private var _binding: HomeFragmentBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var searchViewModel: SearchViewModel
@@ -47,7 +48,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = HomeFragmentBinding.inflate(inflater,container,false)
+        _binding = HomeFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -67,8 +68,8 @@ class HomeFragment : Fragment() {
             homeTrendingRcvViewAdapter.submitList(result)
         }
 
-        searchViewModel.searchResult.observe(viewLifecycleOwner){ response ->
-            val result:List<Item> = response.items
+        searchViewModel.searchResult.observe(viewLifecycleOwner) { response ->
+            val result: List<Item> = response.items
 
             homeCategoryRcvViewAdapter.submitList(result)
             Log.d("TAG", "submitList? : ${homeCategoryRcvViewAdapter.submitList(result)}")
@@ -99,13 +100,15 @@ class HomeFragment : Fragment() {
         homeCategoryRcvViewAdapter = HomeCategoryRcvViewAdapter()
         binding.homeRcvCategoryList.apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = homeCategoryRcvViewAdapter
         }
         homeTrendingRcvViewAdapter = HomeTrendingRcvAdapter()
         binding.homeRcvTrendingList.apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = homeTrendingRcvViewAdapter
             addOnScrollListener(trendingRcvListener)
         }
