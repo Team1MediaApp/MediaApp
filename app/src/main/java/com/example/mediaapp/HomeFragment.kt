@@ -37,14 +37,17 @@ class HomeFragment : Fragment() {
 
         setupRecyclerView()
         searchImages()
+        searchViewModel.trendingResult.observe(viewLifecycleOwner){ response ->
+            val result:List<Item> = response.items
+
+            homeTrendingRcvViewAdapter.submitList(result)
+        }
 
         searchViewModel.searchResult.observe(viewLifecycleOwner){ response ->
             val result:List<Item> = response.items
 
             homeCategoryRcvViewAdapter.submitList(result)
             Log.d("TAG", "submitList? : ${homeCategoryRcvViewAdapter.submitList(result)}")
-
-            homeTrendingRcvViewAdapter.submitList(result)
 
         }
     }
@@ -58,6 +61,7 @@ class HomeFragment : Fragment() {
                     val query = it.toString().trim()
                     if (query.isNotEmpty()) {
                         searchViewModel.searchYoutube(query)
+                        searchViewModel.searchTrending()
                     }
                 }
             }
