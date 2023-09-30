@@ -19,12 +19,14 @@ class VideoRepositoryImpl:VideoRepository {
     }
 
     override suspend fun searchChannel(
-        key: String,
+        key : String,
         part: String,
-        hl: String,
-        id: String
+        maxResults: Int,
+        q: String,
+        regionCode: String,
+        type: String,
     ): Response<ChannelResponse> {
-        return api.searchChannel(key, part, hl, id)
+        return api.searchChannel(key,part,maxResults,q,regionCode,type)
     }
 }
 
