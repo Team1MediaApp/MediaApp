@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.example.mediaapp.data.model.video.CategoryId
 import com.example.mediaapp.data.model.video.Item
 import com.example.mediaapp.databinding.HomeRcvItemCategoryBinding
 
@@ -36,6 +37,11 @@ class HomeCategoryRcvViewAdapter() :
         holder.apply {
             holder.testThumbnails.load(thumbnails.medium.url)
             holder.testItemID.text = snippet.categoryId
+
+            for (categoryName in snippet.categoryId){
+                holder.testItemID.text = CategoryId.categoryMap[snippet.categoryId]
+            }
+
         }
     }
 }

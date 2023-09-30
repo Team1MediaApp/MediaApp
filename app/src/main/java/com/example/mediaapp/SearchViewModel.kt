@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mediaapp.data.model.channel.ChannelResponse
 import com.example.mediaapp.data.model.video.SearchResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,20 +18,56 @@ class SearchViewModel(
     private val savedStateHandle: SavedStateHandle,
 ): ViewModel() {
     private val _searchResult = MutableLiveData<SearchResponse>()
-    val searchResult: LiveData<SearchResponse> get() = _searchResult
+    private val _channelSearchResult = MutableLiveData<ChannelResponse>()
+    private val _trendingSearchResult = MutableLiveData<SearchResponse>()
 
-    fun searchYoutube(q:String) = viewModelScope.launch(Dispatchers.IO){
+    val searchResult: LiveData<SearchResponse> get() = _searchResult
+    val trendingResult : LiveData<SearchResponse> get() = _trendingSearchResult
+    val channelResult : LiveData<ChannelResponse> get() = _channelSearchResult
+
+    fun searchYoutube(videoCategoryId:String) = viewModelScope.launch(Dispatchers.IO){
         try {
-            val response:Response<SearchResponse> = searchRepository.search(Constants.API_KEY,"snippet",q,"mostPopular","ko-KR",10,"KR")
+            val response:Response<SearchResponse> = searchRepository.search(Constants.API_KEY,"snippet",videoCategoryId,"mostPopular","ko-KR",10,"KR")
             if (response.isSuccessful){
                 response.body()?.let { body ->
                     _searchResult.postValue(body)
                     Log.d("TAG", "searchYoutube: ${_searchResult.value}")
                 }
             } else {
-                val errorBody: ResponseBody? = response.errorBody()
+                val videosErrorBody: ResponseBody? = response.errorBody()
             }
         }catch (e: Exception){
+        }
+    }
+
+    fun searchTrending() = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val trendingResponse:Response<SearchResponse> = searchRepository.search(Constants.API_KEY,"snippet","0","mostPopular","ko-KR",10,"KR")
+            if (trendingResponse.isSuccessful){
+                trendingResponse.body()?.let { body ->
+                    _trendingSearchResult.postValue(body)
+                }
+            }else {
+                val trendingErrorBody:ResponseBody? = trendingResponse.errorBody()
+            }
+
+        }catch (e: Exception){
+
+        }
+    }
+
+    fun searchChannels(id:String) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val channelResponse:Response<ChannelResponse> = searchRepository.searchChannel(Constants.API_KEY,"snippet","ko-KR",id)
+            if (channelResponse.isSuccessful){
+                channelResponse.body()?.let { body ->
+                    _channelSearchResult.postValue(body)
+                }
+            }else {
+                val channelsErrorBody : ResponseBody? = channelResponse.errorBody()
+            }
+        }catch (e: Exception){
+
         }
     }
 }
