@@ -13,28 +13,16 @@ data class Thumbnails(
 )
 
 data class Default(
-    @SerializedName("height")
-    val height: Int,
     @SerializedName("url")
-    val url: String,
-    @SerializedName("width")
-    val width: Int
+    val url: String
 )
 
 data class High(
-    @SerializedName("height")
-    val height: Int,
     @SerializedName("url")
-    val url: String,
-    @SerializedName("width")
-    val width: Int
+    val url: String
 )
 
 data class Medium(
-    @SerializedName("height")
-    val height: Int,
     @SerializedName("url")
-    val url: String,
-    @SerializedName("width")
-    val width: Int
+    val url: String
 )

@@ -1,4 +1,4 @@
-package com.example.mediaapp.data.model.video
+package com.example.mediaapp.util
 
 object CategoryId {
 
