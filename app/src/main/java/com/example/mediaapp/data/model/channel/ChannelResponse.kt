@@ -7,13 +7,16 @@ data class ChannelResponse(
     @SerializedName("etag")
     val etag: String,
     @SerializedName("items")
-    val items: List<Item>,
+    val chItems: List<ChItem>,
     @SerializedName("kind")
     val kind: String,
+    @SerializedName("nextPageToken")
+    val nextPageToken: String,
     @SerializedName("pageInfo")
-    val pageInfo: PageInfo
+    val pageInfo: PageInfo,
+    @SerializedName("regionCode")
+    val regionCode: String
 )
-
 data class PageInfo(
     @SerializedName("resultsPerPage")
     val resultsPerPage: Int,
