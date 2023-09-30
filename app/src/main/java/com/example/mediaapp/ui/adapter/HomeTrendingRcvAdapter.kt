@@ -32,7 +32,7 @@ class HomeTrendingRcvAdapter() :
 
         holder.apply {
             holder.trendingThumbnails.load(thumbnails.medium.url)
-            holder.trendingCount.text = "$position/10"
+            holder.trendingCount.text = "${position+1}/10"
         }
     }
 
