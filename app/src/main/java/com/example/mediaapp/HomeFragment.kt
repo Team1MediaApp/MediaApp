@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mediaapp.data.model.video.Item
+import com.example.mediaapp.databinding.DetailFragmentBinding
 import com.example.mediaapp.databinding.HomeFragmentBinding
 import com.example.mediaapp.ui.adapter.HomeCategoryRcvViewAdapter
 import com.example.mediaapp.ui.adapter.HomeTrendingRcvAdapter
@@ -15,7 +16,7 @@ import com.example.mediaapp.ui.adapter.HomeTrendingRcvAdapter
 
 class HomeFragment : Fragment() {
 
-    private var _binding:HomeFragmentBinding? = null
+    private var _binding: HomeFragmentBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var searchViewModel: SearchViewModel
@@ -26,7 +27,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = HomeFragmentBinding.inflate(inflater,container,false)
+        _binding = HomeFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -38,8 +39,8 @@ class HomeFragment : Fragment() {
         setupRecyclerView()
         searchImages()
 
-        searchViewModel.searchResult.observe(viewLifecycleOwner){ response ->
-            val result:List<Item> = response.items
+        searchViewModel.searchResult.observe(viewLifecycleOwner) { response ->
+            val result: List<Item> = response.items
 
             homeCategoryRcvViewAdapter.submitList(result)
             Log.d("TAG", "submitList? : ${homeCategoryRcvViewAdapter.submitList(result)}")
@@ -65,17 +66,19 @@ class HomeFragment : Fragment() {
     }
 
 
-    private fun setupRecyclerView(){
+    private fun setupRecyclerView() {
         homeCategoryRcvViewAdapter = HomeCategoryRcvViewAdapter()
         binding.homeRcvCategoryList.apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = homeCategoryRcvViewAdapter
         }
         homeTrendingRcvViewAdapter = HomeTrendingRcvAdapter()
         binding.homeRcvTrendingList.apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = homeTrendingRcvViewAdapter
         }
     }
