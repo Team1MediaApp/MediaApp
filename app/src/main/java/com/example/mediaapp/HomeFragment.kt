@@ -7,10 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mediaapp.data.model.channel.ChItem
+import com.example.mediaapp.util.CategoryId
 import com.example.mediaapp.data.model.video.Item
 import com.example.mediaapp.databinding.DetailFragmentBinding
 import com.example.mediaapp.databinding.HomeFragmentBinding
 import com.example.mediaapp.ui.adapter.HomeCategoryRcvViewAdapter
+import com.example.mediaapp.ui.adapter.HomeChannelRcvAdapter
 import com.example.mediaapp.ui.adapter.HomeTrendingRcvAdapter
 
 
@@ -22,6 +25,7 @@ class HomeFragment : Fragment() {
     private lateinit var searchViewModel: SearchViewModel
     private lateinit var homeCategoryRcvViewAdapter: HomeCategoryRcvViewAdapter
     private lateinit var homeTrendingRcvViewAdapter: HomeTrendingRcvAdapter
+    private lateinit var homeChannelRcvAdapter: HomeChannelRcvAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +42,11 @@ class HomeFragment : Fragment() {
 
         setupRecyclerView()
         searchImages()
+        searchViewModel.trendingResult.observe(viewLifecycleOwner){ response ->
+            val result:List<Item> = response.items
+
+            homeTrendingRcvViewAdapter.submitList(result)
+        }
 
         searchViewModel.searchResult.observe(viewLifecycleOwner) { response ->
             val result: List<Item> = response.items
@@ -45,8 +54,12 @@ class HomeFragment : Fragment() {
             homeCategoryRcvViewAdapter.submitList(result)
             Log.d("TAG", "submitList? : ${homeCategoryRcvViewAdapter.submitList(result)}")
 
-            homeTrendingRcvViewAdapter.submitList(result)
+        }
 
+        searchViewModel.channelResult.observe(viewLifecycleOwner){ response ->
+            val result:List<ChItem> = response.chItems
+
+            homeChannelRcvAdapter.submitList(result)
         }
     }
 
@@ -59,6 +72,8 @@ class HomeFragment : Fragment() {
                     val query = it.toString().trim()
                     if (query.isNotEmpty()) {
                         searchViewModel.searchYoutube(query)
+                        searchViewModel.searchTrending()
+                        searchViewModel.searchChannels(CategoryId.categoryMap[query] ?: "sport")
                     }
                 }
             }
@@ -81,6 +96,14 @@ class HomeFragment : Fragment() {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = homeTrendingRcvViewAdapter
         }
+        homeChannelRcvAdapter = HomeChannelRcvAdapter()
+        binding.homeRcvChannelList.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+            adapter = homeChannelRcvAdapter
+        }
+
+
     }
 
     override fun onDestroy() {
