@@ -1,7 +1,7 @@
 package com.example.mediaapp.data.api
 
 
-import com.example.mediaapp.Constants
+import com.example.mediaapp.util.Constants
 import com.example.mediaapp.data.model.channel.ChannelResponse
 import com.example.mediaapp.data.model.video.SearchResponse
 import retrofit2.Response
@@ -21,12 +21,14 @@ interface VideoInterface {
         @Query("regionCode")regionCode:String,
     ) : Response<SearchResponse>
 
-    @GET("channels")
+    @GET("search")
     suspend fun searchChannel(
         @Query("key") key : String = Constants.API_KEY,
         @Query("part") part : String,
-        @Query("hl") hl : String,
-        @Query("id") id : String,
+        @Query("maxResults") maxResults : Int,
+        @Query("q") q: String,
+        @Query("regionCode") regionCode : String,
+        @Query("type")type : String,
     ): Response<ChannelResponse>
 }
 

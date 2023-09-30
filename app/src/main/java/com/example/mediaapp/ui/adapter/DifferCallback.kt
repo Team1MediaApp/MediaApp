@@ -2,6 +2,7 @@ package com.example.mediaapp.ui.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.DiffUtil
+import com.example.mediaapp.data.model.channel.ChItem
 import com.example.mediaapp.data.model.video.Item
 
 object DifferCallback{
@@ -18,6 +19,22 @@ object DifferCallback{
             newItem: Item
         ): Boolean {
             return oldItem.etag == newItem.etag
+        }
+    }
+
+    val channelDifferCallback = object : DiffUtil.ItemCallback<ChItem>() {
+        override fun areContentsTheSame(
+            oldChItem: ChItem,
+            newChItem: ChItem
+        ): Boolean {
+            return oldChItem == newChItem
+        }
+
+        override fun areItemsTheSame(
+            oldChItem: ChItem,
+            newChItem: ChItem
+        ): Boolean {
+            return oldChItem.etag == newChItem.etag
         }
     }
 }

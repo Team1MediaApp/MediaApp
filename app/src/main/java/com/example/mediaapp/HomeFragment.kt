@@ -7,9 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mediaapp.data.model.channel.ChItem
+import com.example.mediaapp.util.CategoryId
 import com.example.mediaapp.data.model.video.Item
 import com.example.mediaapp.databinding.HomeFragmentBinding
 import com.example.mediaapp.ui.adapter.HomeCategoryRcvViewAdapter
+import com.example.mediaapp.ui.adapter.HomeChannelRcvAdapter
 import com.example.mediaapp.ui.adapter.HomeTrendingRcvAdapter
 
 
@@ -21,6 +24,7 @@ class HomeFragment : Fragment() {
     private lateinit var searchViewModel: SearchViewModel
     private lateinit var homeCategoryRcvViewAdapter: HomeCategoryRcvViewAdapter
     private lateinit var homeTrendingRcvViewAdapter: HomeTrendingRcvAdapter
+    private lateinit var homeChannelRcvAdapter: HomeChannelRcvAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +54,12 @@ class HomeFragment : Fragment() {
             Log.d("TAG", "submitList? : ${homeCategoryRcvViewAdapter.submitList(result)}")
 
         }
+
+        searchViewModel.channelResult.observe(viewLifecycleOwner){ response ->
+            val result:List<ChItem> = response.chItems
+
+            homeChannelRcvAdapter.submitList(result)
+        }
     }
 
     private fun searchImages() {
@@ -62,6 +72,7 @@ class HomeFragment : Fragment() {
                     if (query.isNotEmpty()) {
                         searchViewModel.searchYoutube(query)
                         searchViewModel.searchTrending()
+                        searchViewModel.searchChannels(CategoryId.categoryMap[query] ?: "sport")
                     }
                 }
             }
@@ -82,6 +93,14 @@ class HomeFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
             adapter = homeTrendingRcvViewAdapter
         }
+        homeChannelRcvAdapter = HomeChannelRcvAdapter()
+        binding.homeRcvChannelList.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+            adapter = homeChannelRcvAdapter
+        }
+
+
     }
 
     override fun onDestroy() {

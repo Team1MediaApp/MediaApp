@@ -1,6 +1,5 @@
 package com.example.mediaapp
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -8,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mediaapp.data.model.channel.ChannelResponse
 import com.example.mediaapp.data.model.video.SearchResponse
+import com.example.mediaapp.util.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
@@ -31,7 +31,7 @@ class SearchViewModel(
             if (response.isSuccessful){
                 response.body()?.let { body ->
                     _searchResult.postValue(body)
-                    Log.d("TAG", "searchYoutube: ${_searchResult.value}")
+
                 }
             } else {
                 val videosErrorBody: ResponseBody? = response.errorBody()
@@ -58,7 +58,7 @@ class SearchViewModel(
 
     fun searchChannels(id:String) = viewModelScope.launch(Dispatchers.IO) {
         try {
-            val channelResponse:Response<ChannelResponse> = searchRepository.searchChannel(Constants.API_KEY,"snippet","ko-KR",id)
+            val channelResponse:Response<ChannelResponse> = searchRepository.searchChannel(Constants.API_KEY,"snippet",15,id,"KR","channel")
             if (channelResponse.isSuccessful){
                 channelResponse.body()?.let { body ->
                     _channelSearchResult.postValue(body)

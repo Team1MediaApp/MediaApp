@@ -3,6 +3,7 @@ package com.example.mediaapp
 import com.example.mediaapp.data.model.channel.ChannelResponse
 import com.example.mediaapp.data.model.video.SearchResponse
 import retrofit2.Response
+import retrofit2.http.Query
 
 interface VideoRepository {
     suspend fun search(
@@ -18,7 +19,9 @@ interface VideoRepository {
     suspend fun searchChannel(
         key : String,
         part: String,
-        hl : String,
-        id: String,
+        maxResults: Int,
+        q: String,
+        regionCode: String,
+        type: String,
     ): Response<ChannelResponse>
 }
