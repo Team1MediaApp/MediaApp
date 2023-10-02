@@ -1,6 +1,5 @@
 package com.example.mediaapp.ui.adapter
 
-import android.view.View
 import androidx.recyclerview.widget.DiffUtil
 import com.example.mediaapp.data.model.channel.ChItem
 import com.example.mediaapp.data.model.video.Item
@@ -40,5 +39,9 @@ object DifferCallback{
 }
 
 interface ItemClick {
-    fun onClick(view: View, position: Int)
+    fun onClick(item: Item)
+}
+
+interface ChannelItemClick {
+    fun onClick(item: ChItem)
 }

@@ -10,11 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mediaapp.data.model.channel.ChItem
 import com.example.mediaapp.util.CategoryId
 import com.example.mediaapp.data.model.video.Item
-import com.example.mediaapp.databinding.DetailFragmentBinding
 import com.example.mediaapp.databinding.HomeFragmentBinding
+import com.example.mediaapp.ui.adapter.ChannelItemClick
 import com.example.mediaapp.ui.adapter.HomeCategoryRcvViewAdapter
 import com.example.mediaapp.ui.adapter.HomeChannelRcvAdapter
 import com.example.mediaapp.ui.adapter.HomeTrendingRcvAdapter
+import com.example.mediaapp.ui.adapter.ItemClick
 
 
 class HomeFragment : Fragment() {
@@ -48,8 +49,8 @@ class HomeFragment : Fragment() {
             homeTrendingRcvViewAdapter.submitList(result)
         }
 
-        searchViewModel.searchResult.observe(viewLifecycleOwner) { response ->
-            val result: List<Item> = response.items
+        searchViewModel.searchResult.observe(viewLifecycleOwner){ response ->
+            val result:List<Item> = response.items
 
             homeCategoryRcvViewAdapter.submitList(result)
             Log.d("TAG", "submitList? : ${homeCategoryRcvViewAdapter.submitList(result)}")
@@ -82,33 +83,70 @@ class HomeFragment : Fragment() {
 
 
     private fun setupRecyclerView() {
-        homeCategoryRcvViewAdapter = HomeCategoryRcvViewAdapter()
+        homeCategoryRcvViewAdapter = HomeCategoryRcvViewAdapter(object : ItemClick {
+            override fun onClick(item: Item) {
+                val detail = DetailFragment().apply {
+                    arguments = Bundle().apply {
+                        putSerializable("Video_data", item)
+                    }
+                }
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.main_frame, detail)
+                    .addToBackStack(null)
+                    .commit()
+            }
+        })
+
         binding.homeRcvCategoryList.apply {
             setHasFixedSize(true)
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = homeCategoryRcvViewAdapter
         }
-        homeTrendingRcvViewAdapter = HomeTrendingRcvAdapter()
+
+        homeTrendingRcvViewAdapter = HomeTrendingRcvAdapter(object : ItemClick {
+            override fun onClick(item: Item) {
+                val detail = DetailFragment().apply {
+                    arguments = Bundle().apply {
+                        putSerializable("Video_data", item)
+                    }
+                }
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.main_frame, detail)
+                    .addToBackStack(null)
+                    .commit()
+            }
+        })
+
         binding.homeRcvTrendingList.apply {
             setHasFixedSize(true)
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = homeTrendingRcvViewAdapter
         }
-        homeChannelRcvAdapter = HomeChannelRcvAdapter()
+
+        homeChannelRcvAdapter = HomeChannelRcvAdapter(object : ChannelItemClick {
+            override fun onClick(item: ChItem) {
+                Log.d("jina", "homeChannelAdapter: onClick $item")
+                val detail = DetailFragment().apply {
+                    arguments = Bundle().apply {
+                        putSerializable("Video_data", item)
+                    }
+                }
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.main_frame, detail)
+                    .addToBackStack(null)
+                    .commit()
+            }
+        })
+
         binding.homeRcvChannelList.apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = homeChannelRcvAdapter
         }
-
-
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
 }
