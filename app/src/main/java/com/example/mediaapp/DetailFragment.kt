@@ -30,8 +30,8 @@ class DetailFragment : Fragment() {
         return binding.root
     }
 
+    // 공유하기 버튼 구현 , 위에 shareButton() 포함
     private fun shareButton(){
-        val shareButton = binding.detailBtnShare
         binding.detailBtnShare.setOnClickListener {
             val shareIntent = Intent().apply() {
                 action = Intent.ACTION_SEND
@@ -42,6 +42,8 @@ class DetailFragment : Fragment() {
             startActivity(Intent.createChooser(shareIntent, null))
         }
     }
+
+    // 정보 전달되는 부분
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,6 +58,8 @@ class DetailFragment : Fragment() {
             }
         }
     }
+
+    // 메모리 누수 방지
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
