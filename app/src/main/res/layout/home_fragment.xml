@@ -12,36 +12,19 @@
         android:background="@color/white">
 
 
-        <EditText
-            android:id="@+id/search_frag_edit_search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/search_frag_btn_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:src="@drawable/ic_search"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/home_tv_trending"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="8dp"
             android:gravity="center_vertical"
             android:text="Trnding / Top10"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -56,11 +39,33 @@
             app:layout_constraintTop_toBottomOf="@+id/home_tv_trending"
             tools:listitem="@layout/home_rcv_item_trending" />
 
+        <com.skydoves.powerspinner.PowerSpinnerView
+            android:id="@+id/home_spn_category_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="카테고리"
+            android:textColorHint="@color/black"
+            android:textSize="18sp"
+            android:gravity="center"
+            app:spinner_item_array="@array/category"
+            app:spinner_arrow_gravity="end"
+            app:spinner_arrow_tint="@color/black"
+            app:spinner_popup_animation="normal"
+            app:spinner_popup_background="@color/white"
+            app:spinner_selected_item_background="@color/white"
+            app:spinner_divider_size="1dp"
+            app:spinner_divider_show="true"
+            app:spinner_divider_color="@color/black"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/home_rcv_category_list"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/home_rcv_trending_list" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/home_rcv_category_list"
             android:layout_width="match_parent"
             android:layout_height="212dp"
+            android:layout_marginTop="40dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@+id/textView2"
             app:layout_constraintEnd_toEndOf="parent"
