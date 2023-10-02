@@ -7,14 +7,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.example.mediaapp.databinding.MypageDialogModifyFragmentBinding
 
 
-
-
-class MypageDialogModifyFragment : Fragment() {
-
+class MypageDialogModifyFragment : DialogFragment() {
+//△이전에 show가 안되어서 문제였던 부분은 DialogFragment가 아닌 Fragment로 했기 때문에 기본적으로 다이얼로그에 있는
+// show가 없어서 생긴 문제였다고한다 다음에도 안되면 확인해보기
 
     private var listener: OnDataModifiedListener? = null
 
@@ -89,11 +89,6 @@ class MypageDialogModifyFragment : Fragment() {
         _binding = null
     }
 
-    //방금 매니저 : 프래그먼트매니저 < 이거 알엔터로 임포트했는데 2개중 1번째걸로함. 이상있을시 변경할것
-    fun show(manager: FragmentManager, tag: String?) {
-        val ft = manager.beginTransaction()
-        ft.add(this, tag)
-        ft.commitAllowingStateLoss()
-    }
+
 }
 

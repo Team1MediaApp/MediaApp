@@ -76,6 +76,7 @@ class MypageFragment : Fragment(), MypageDialogModifyFragment.OnDataModifiedList
         binding.mypageBtnModifyProfile.setOnClickListener {
             val mypageDialog = MypageDialogModifyFragment()
             mypageDialog.setOnDataModifiedListener(this)
+            Log.d("aaaa","bbbb")
             mypageDialog.show(parentFragmentManager, "MypageDialogModifyFragment")
         }
 
