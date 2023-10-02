@@ -1,13 +1,14 @@
 package com.example.mediaapp.data.api
 
 import com.example.mediaapp.Constants
+import com.example.mediaapp.model.YoutubeSearchResponse
 
-class NetworkRepository {
-    private val builder = NetworkClient.getBuilder().create(YoutubeService::class.java)
+class SearchRepositoryImpl() : SearchRepository {
+    override suspend fun getSearchImage(query: String, type: String): YoutubeSearchResponse =
+        NetworkClient.search.responseSearch(Constants.API_KEY, "snippet", query, 3, "KR", type)
 
-    suspend fun searchYoutube(
-        query: String
-    ) =
-        builder.responseSearch(Constants.API_KEY, "snippet", query, 3, "KR")
+    override suspend fun getSearchChannel(query: String): YoutubeSearchResponse =
+        NetworkClient.search.responseChannels(Constants.API_KEY, "snippet", query)
+
 
 }
