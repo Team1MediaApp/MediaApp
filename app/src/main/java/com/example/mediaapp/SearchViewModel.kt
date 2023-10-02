@@ -1,4 +1,4 @@
-package com.example.mediaapp.data.model
+package com.example.mediaapp
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
