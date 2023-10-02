@@ -1,12 +1,16 @@
 package com.example.mediaapp
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.example.mediaapp.data.model.channel.ChItem
 import com.example.mediaapp.util.CategoryId
 import com.example.mediaapp.data.model.video.Item
@@ -14,6 +18,8 @@ import com.example.mediaapp.databinding.HomeFragmentBinding
 import com.example.mediaapp.ui.adapter.HomeCategoryRcvViewAdapter
 import com.example.mediaapp.ui.adapter.HomeChannelRcvAdapter
 import com.example.mediaapp.ui.adapter.HomeTrendingRcvAdapter
+import kotlinx.coroutines.Delay
+import okhttp3.internal.userAgent
 
 
 class HomeFragment : Fragment() {
@@ -25,6 +31,17 @@ class HomeFragment : Fragment() {
     private lateinit var homeCategoryRcvViewAdapter: HomeCategoryRcvViewAdapter
     private lateinit var homeTrendingRcvViewAdapter: HomeTrendingRcvAdapter
     private lateinit var homeChannelRcvAdapter: HomeChannelRcvAdapter
+
+    private var isUserScrolling = false
+
+    private var scrollHandler = Handler(Looper.getMainLooper())
+    private val scrollRunnable = object : Runnable {
+        override fun run() {
+            autoScroll()
+            scrollHandler.postDelayed(this,5000)
+        }
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,6 +80,8 @@ class HomeFragment : Fragment() {
 
             homeChannelRcvAdapter.submitList(result)
         }
+
+        scrollHandler.postDelayed(scrollRunnable,5000)
     }
 
     private fun searchCategory() {
@@ -75,6 +94,8 @@ class HomeFragment : Fragment() {
 
 
     private fun setupRecyclerView(){
+        val trendingSnapHelper = LinearSnapHelper()
+        trendingSnapHelper.attachToRecyclerView(binding.homeRcvTrendingList)
         homeCategoryRcvViewAdapter = HomeCategoryRcvViewAdapter()
         binding.homeRcvCategoryList.apply {
             setHasFixedSize(true)
@@ -86,6 +107,7 @@ class HomeFragment : Fragment() {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
             adapter = homeTrendingRcvViewAdapter
+            addOnScrollListener(trendingRcvListener)
         }
         homeChannelRcvAdapter = HomeChannelRcvAdapter()
         binding.homeRcvChannelList.apply {
@@ -97,9 +119,45 @@ class HomeFragment : Fragment() {
 
     }
 
+    private val trendingRcvListener = object : RecyclerView.OnScrollListener(){
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+
+            when (newState) {
+                RecyclerView.SCROLL_STATE_DRAGGING -> {
+                    isUserScrolling = true
+                }
+                RecyclerView.SCROLL_STATE_IDLE -> {
+                    if (isUserScrolling){
+                        val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                        val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+                        val itemCount = recyclerView.adapter?.itemCount ?: 0
+
+                        if (lastVisibleItemPosition == itemCount -1 ){
+                            recyclerView.scrollToPosition(0)
+                        }
+                    }
+                    isUserScrolling = false
+                }
+            }
+        }
+    }
+    private fun autoScroll() {
+        val layoutManager = binding.homeRcvTrendingList.layoutManager as LinearLayoutManager
+        val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+        val itemCount = homeTrendingRcvViewAdapter.itemCount
+
+        if (lastVisibleItemPosition < itemCount -1){
+            binding.homeRcvTrendingList.smoothScrollToPosition(lastVisibleItemPosition + 1)
+        } else {
+            binding.homeRcvTrendingList.scrollToPosition(0)
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+        scrollHandler.removeCallbacksAndMessages(scrollRunnable)
     }
 
 }
