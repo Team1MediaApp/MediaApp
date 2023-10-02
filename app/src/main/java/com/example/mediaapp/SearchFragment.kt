@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import com.example.mediaapp.data.api.SearchRepositoryImpl
 import com.example.mediaapp.databinding.SearchFragmentBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -53,9 +54,9 @@ class SearchFragment : Fragment() {
     private fun getData(query: String) {
         GlobalScope.launch(Dispatchers.IO) {
             kotlin.runCatching {
-                val result = NetworkRepository().searchYoutube(query)
+                val videos = SearchRepositoryImpl().getSearchImage(query, "video")
+                val channels = SearchRepositoryImpl().getSearchImage(query, "channel")
                 withContext(Dispatchers.Main) {
-                    Log.d("test", result.toString())
                 }
             }.onFailure {
                 Log.d("test", "response failed")
