@@ -41,6 +41,8 @@ class HomeFragment : Fragment() {
 
         setupRecyclerView()
         searchCategory()
+        searchViewModel.searchYoutube("1")
+        searchViewModel.searchChannels("tv")
         searchViewModel.searchTrending()
         searchViewModel.trendingResult.observe(viewLifecycleOwner){ response ->
             val result:List<Item> = response.items
@@ -69,20 +71,6 @@ class HomeFragment : Fragment() {
             searchViewModel.searchYoutube(CategoryId.categoryMap[query] ?: "1")
             searchViewModel.searchChannels(query)
         }
-
-//        binding.searchFragBtnSearch.setOnClickListener {
-//            val searchBar = binding.searchFragEditSearch
-//            if (searchBar.text.isNotEmpty()) {
-//                searchBar.text?.let {
-//                    val query = it.toString().trim()
-//                    if (query.isNotEmpty()) {
-//                        searchViewModel.searchYoutube(query)
-//                        searchViewModel.searchTrending()
-//                        searchViewModel.searchChannels(CategoryId.categoryMap[query] ?: "sport")
-//                    }
-//                }
-//            }
-//        }
     }
 
 

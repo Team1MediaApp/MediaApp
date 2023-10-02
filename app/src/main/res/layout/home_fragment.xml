@@ -43,7 +43,7 @@
             android:id="@+id/home_spn_category_select"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="테스트"
+            android:hint="카테고리"
             android:textColorHint="@color/black"
             android:textSize="18sp"
             android:gravity="center"
