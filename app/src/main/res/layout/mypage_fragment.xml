@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/mypage_btn_modify_background_profile_image"
+            android:id="@+id/mypage_btn_modify_profile"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginTop="10dp"
@@ -107,7 +107,9 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/mypage_view_hlinebottom"
             app:layout_constraintStart_toEndOf="@+id/mypage_img_bell"
-            app:layout_constraintTop_toBottomOf="@+id/mypage_view_hlinetop" />
+            app:layout_constraintTop_toBottomOf="@+id/mypage_view_hlinetop"
+            tools:ignore="TextSizeCheck"
+            />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/mypage_btn_bookmark_channal"

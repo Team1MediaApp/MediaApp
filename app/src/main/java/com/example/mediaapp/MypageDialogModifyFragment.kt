@@ -7,10 +7,26 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import com.example.mediaapp.databinding.MypageDialogModifyFragmentBinding
 
 
+
+
 class MypageDialogModifyFragment : Fragment() {
+
+
+    private var listener: OnDataModifiedListener? = null
+
+    fun setOnDataModifiedListener(listener: OnDataModifiedListener) {
+        this.listener = listener
+    }
+
+    interface OnDataModifiedListener {
+        fun onDataModified()
+    }
+
+
     private var _binding: MypageDialogModifyFragmentBinding? = null
     private val binding get() = _binding!!
 
@@ -72,16 +88,12 @@ class MypageDialogModifyFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    //방금 매니저 : 프래그먼트매니저 < 이거 알엔터로 임포트했는데 2개중 1번째걸로함. 이상있을시 변경할것
+    fun show(manager: FragmentManager, tag: String?) {
+        val ft = manager.beginTransaction()
+        ft.add(this, tag)
+        ft.commitAllowingStateLoss()
+    }
 }
 
-//companion object {
-//
-//    @JvmStatic
-//    fun newInstance(param1: String, param2: String) =
-//        Mypage_dialog_modify_Fragment().apply {
-//            arguments = Bundle().apply {
-//                putString(ARG_PARAM1, param1)
-//                putString(ARG_PARAM2, param2)
-//            }
-//        }
-//}
