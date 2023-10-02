@@ -19,14 +19,20 @@ class DetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // shareButton()
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = DetailFragmentBinding.inflate(inflater, container, false)
+        shareButton()
+        return binding.root
+    }
 
- //공유하기 버튼 기능 구현
     private fun shareButton(){
         val shareButton = binding.detailBtnShare
-        shareButton.setOnClickListener {
+        binding.detailBtnShare.setOnClickListener {
             val shareIntent = Intent().apply() {
                 action = Intent.ACTION_SEND
                 putExtra(
@@ -37,18 +43,10 @@ class DetailFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = DetailFragmentBinding.inflate(layoutInflater)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("jina", "DetailFragment: arguments")
-        val item = arguments?.getSerializable("Video_data") as? Item
+//        Log.d("jina", "DetailFragment: arguments")
+        val item = arguments?.getSerializable("Video_data") as Item?
         item?.let {
             with(binding){
                 detailTxtChannel.text = it.snippet.channelTitle
@@ -57,5 +55,9 @@ class DetailFragment : Fragment() {
                 detailTxtVideoDetail.text = it.snippet.description
             }
         }
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
