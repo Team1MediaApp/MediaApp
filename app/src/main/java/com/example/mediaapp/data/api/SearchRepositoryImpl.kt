@@ -1,4 +1,6 @@
-package com.example.mediaapp
+package com.example.mediaapp.data.api
+
+import com.example.mediaapp.Constants
 
 class NetworkRepository {
     private val builder = NetworkClient.getBuilder().create(YoutubeService::class.java)

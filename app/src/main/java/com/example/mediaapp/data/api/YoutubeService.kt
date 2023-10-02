@@ -1,7 +1,6 @@
 package com.example.mediaapp
 
-import com.example.mediaapp.model.YoutubeSearchModel
-import retrofit2.Response
+import com.example.mediaapp.model.YoutubeSearchResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -13,6 +12,6 @@ interface YoutubeService {
         @Query("q") query: String,
         @Query("maxResults") maxResults: Int,
         @Query("regionCode") regionCode: String,
-    ): YoutubeSearchModel
+    ): YoutubeSearchResponse
 
 }
