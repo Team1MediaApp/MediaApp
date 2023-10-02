@@ -29,4 +29,12 @@ object NetworkClient {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
+
+    private fun getDataFormatGsonBuilder() = GsonBuilder()
+        .setDateFormat("yyyy-MM-dd HH:mm:ss")
+        .create()
+
+    val search: YoutubeService by lazy {
+        retrofitBuilder.create(YoutubeService::class.java)
+    }
 }
