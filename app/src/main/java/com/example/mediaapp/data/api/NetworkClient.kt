@@ -12,8 +12,13 @@ import java.util.concurrent.TimeUnit
 
 object NetworkClient {
     private const val YOUTUBE_BASE_URL = "https://www.googleapis.com/youtube/"
-    private val interceptor = HttpLoggingInterceptor()
     private val okHttpClient by lazy {
+        val interceptor = HttpLoggingInterceptor()
+        if (BuildConfig.DEBUG)
+            interceptor.level = HttpLoggingInterceptor.Level.BODY
+        else
+            interceptor.level = HttpLoggingInterceptor.Level.NONE
+
         OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
