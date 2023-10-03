@@ -6,7 +6,12 @@ interface SearchRepository {
     suspend fun getSearchImage(
         query: String,
         type: String,
-        maxResult: Int = 3
+        maxResult: Int = 10
+    ): YoutubeSearchResponse
+
+    suspend fun getSearchImageByPageToken(
+        nextPageToken: String,
+        maxResult: Int = 10
     ): YoutubeSearchResponse
 
     suspend fun getSearchChannel(query: String): YoutubeSearchResponse
