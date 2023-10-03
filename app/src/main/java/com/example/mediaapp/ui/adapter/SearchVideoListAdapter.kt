@@ -12,12 +12,125 @@ import com.example.mediaapp.model.YoutubeSearchResponse
 
 class SearchVideoListAdapter() : RecyclerView.Adapter<SearchVideoListAdapter.ViewHolder>() {
     private val dataList: ArrayList<SearchVideoEntity> = arrayListOf()
-    override fun getItemViewType(position: Int): Int {
-        return super.getItemViewType(position)
+
+    init {
+        dataList.add(
+            SearchVideoEntity(
+                "ITSub잇섭",
+                "형보다 괜찮은 아우? 애플 아이폰 15 달라진 핵심기능 7가지!",
+                "https://i.ytimg.com/vi/GtWhC-ITUsI/mqdefault.jpg",
+                "2023-09-28T05:00:08Z"
+            )
+        )
+        dataList.add(
+            SearchVideoEntity(
+                "ITSub잇섭",
+                "형보다 괜찮은 아우? 애플 아이폰 15 달라진 핵심기능 7가지!",
+                "https://i.ytimg.com/vi/GtWhC-ITUsI/mqdefault.jpg",
+                "2023-09-28T05:00:08Z"
+            )
+        )
+        dataList.add(
+            SearchVideoEntity(
+                "ITSub잇섭",
+                "형보다 괜찮은 아우? 애플 아이폰 15 달라진 핵심기능 7가지!",
+                "https://i.ytimg.com/vi/GtWhC-ITUsI/mqdefault.jpg",
+                "2023-09-28T05:00:08Z"
+            )
+        )
+        dataList.add(
+            SearchVideoEntity(
+                "ITSub잇섭",
+                "형보다 괜찮은 아우? 애플 아이폰 15 달라진 핵심기능 7가지!",
+                "https://i.ytimg.com/vi/GtWhC-ITUsI/mqdefault.jpg",
+                "2023-09-28T05:00:08Z"
+            )
+        )
+        dataList.add(
+            SearchVideoEntity(
+                "ITSub잇섭",
+                "형보다 괜찮은 아우? 애플 아이폰 15 달라진 핵심기능 7가지!",
+                "https://i.ytimg.com/vi/GtWhC-ITUsI/mqdefault.jpg",
+                "2023-09-28T05:00:08Z"
+            )
+        )
+        dataList.add(
+            SearchVideoEntity(
+                "ITSub잇섭",
+                "형보다 괜찮은 아우? 애플 아이폰 15 달라진 핵심기능 7가지!",
+                "https://i.ytimg.com/vi/GtWhC-ITUsI/mqdefault.jpg",
+                "2023-09-28T05:00:08Z"
+            )
+        )
+        dataList.add(
+            SearchVideoEntity(
+                "ITSub잇섭",
+                "형보다 괜찮은 아우? 애플 아이폰 15 달라진 핵심기능 7가지!",
+                "https://i.ytimg.com/vi/GtWhC-ITUsI/mqdefault.jpg",
+                "2023-09-28T05:00:08Z"
+            )
+        )
+        dataList.add(
+            SearchVideoEntity(
+                "ITSub잇섭",
+                "형보다 괜찮은 아우? 애플 아이폰 15 달라진 핵심기능 7가지!",
+                "https://i.ytimg.com/vi/GtWhC-ITUsI/mqdefault.jpg",
+                "2023-09-28T05:00:08Z"
+            )
+        )
+        dataList.add(
+            SearchVideoEntity(
+                "ITSub잇섭",
+                "형보다 괜찮은 아우? 애플 아이폰 15 달라진 핵심기능 7가지!",
+                "https://i.ytimg.com/vi/GtWhC-ITUsI/mqdefault.jpg",
+                "2023-09-28T05:00:08Z"
+            )
+        )
+        dataList.add(
+            SearchVideoEntity(
+                "ITSub잇섭",
+                "형보다 괜찮은 아우? 애플 아이폰 15 달라진 핵심기능 7가지!",
+                "https://i.ytimg.com/vi/GtWhC-ITUsI/mqdefault.jpg",
+                "2023-09-28T05:00:08Z"
+            )
+        )
+        dataList.add(
+            SearchVideoEntity(
+                "ITSub잇섭",
+                "형보다 괜찮은 아우? 애플 아이폰 15 달라진 핵심기능 7가지!",
+                "https://i.ytimg.com/vi/GtWhC-ITUsI/mqdefault.jpg",
+                "2023-09-28T05:00:08Z"
+            )
+        )
+        dataList.add(
+            SearchVideoEntity(
+                "ITSub잇섭",
+                "형보다 괜찮은 아우? 애플 아이폰 15 달라진 핵심기능 7가지!",
+                "https://i.ytimg.com/vi/GtWhC-ITUsI/mqdefault.jpg",
+                "2023-09-28T05:00:08Z"
+            )
+        )
+        dataList.add(
+            SearchVideoEntity(
+                "ITSub잇섭",
+                "형보다 괜찮은 아우? 애플 아이폰 15 달라진 핵심기능 7가지!",
+                "https://i.ytimg.com/vi/GtWhC-ITUsI/mqdefault.jpg",
+                "2023-09-28T05:00:08Z"
+            )
+        )
+        dataList.add(
+            SearchVideoEntity(
+                "ITSub잇섭",
+                "형보다 괜찮은 아우? 애플 아이폰 15 달라진 핵심기능 7가지!",
+                "https://i.ytimg.com/vi/GtWhC-ITUsI/mqdefault.jpg",
+                "2023-09-28T05:00:08Z"
+            )
+        )
     }
 
     fun refreshList() {
         dataList.clear()
+        notifyDataSetChanged()
     }
 
     fun addDataList(items: ArrayList<SearchVideoEntity>) {
@@ -47,8 +160,4 @@ class SearchVideoListAdapter() : RecyclerView.Adapter<SearchVideoListAdapter.Vie
         holder.bind(item)
     }
 
-    companion object {
-        private const val VIEW_TYPE_ITEM = 0
-        private const val VIEW_TYPE_LOADING = 1
-    }
 }
