@@ -209,9 +209,9 @@ class HomeFragment : Fragment() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        scrollHandler.removeCallbacksAndMessages(null)
         _binding = null
-        scrollHandler.removeCallbacksAndMessages(scrollRunnable)
     }
 }
