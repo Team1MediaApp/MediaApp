@@ -84,6 +84,10 @@ class MypageFragment : Fragment() {
         editor.putBoolean("isBookmarkChannalOn", isBookmarkChannalOn)
         editor.apply()
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
 
