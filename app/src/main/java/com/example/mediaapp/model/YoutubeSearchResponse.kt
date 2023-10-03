@@ -4,22 +4,22 @@ package com.example.mediaapp.model
 import com.google.gson.annotations.SerializedName
 
 data class YoutubeSearchResponse(
-    @SerializedName("etag")
-    val etag: String?,
-    @SerializedName("items")
-    val items: List<Item>?,
-    @SerializedName("kind")
+    @SerializedName("kind") // youtube#searchResult
     val kind: String?,
+    @SerializedName("etag") // etag
+    val etag: String?,
     @SerializedName("nextPageToken")
     val nextPageToken: String?,
     @SerializedName("prevPageToken")
     val prevPageToken: String?,
-    @SerializedName("pageInfo")
-    val pageInfo: PageInfo?,
     @SerializedName("regionCode")
     val regionCode: String?,
+    @SerializedName("pageInfo")
+    val pageInfo: PageInfo?,
+    @SerializedName("items")
+    val items: List<Items>?,
 ) {
-    data class Item(
+    data class Items(
         @SerializedName("etag")
         val etag: String?,
         @SerializedName("id")
