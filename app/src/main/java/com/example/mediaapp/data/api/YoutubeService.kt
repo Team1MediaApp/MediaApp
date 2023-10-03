@@ -9,8 +9,9 @@ interface YoutubeService {
     suspend fun responseSearch(
         @Query("key") key: String,
         @Query("part") part: String,
-        @Query("q") query: String,
         @Query("maxResults") maxResults: Int?,
+        @Query("pageToken") pageToken: String?,
+        @Query("q") query: String?,
         @Query("regionCode") regionCode: String?,
         @Query("type") type: String?,
     ): YoutubeSearchResponse
