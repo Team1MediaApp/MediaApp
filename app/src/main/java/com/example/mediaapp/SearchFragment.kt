@@ -7,8 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.core.widget.NestedScrollView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.mediaapp.data.api.SearchRepositoryImpl
 import com.example.mediaapp.databinding.SearchFragmentBinding
+import com.example.mediaapp.model.SearchVideoEntity
+import com.example.mediaapp.ui.adapter.SearchChannelListAdapter
+import com.example.mediaapp.ui.adapter.SearchVideoListAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -17,6 +23,10 @@ import kotlinx.coroutines.withContext
 class SearchFragment : Fragment() {
     private var _binding: SearchFragmentBinding? = null
     private val binding get() = _binding!!
+
+    private val videoListAdapter by lazy {
+        SearchVideoListAdapter()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,10 +48,33 @@ class SearchFragment : Fragment() {
         searchSearchViewSearch.isSubmitButtonEnabled = true
         searchListviewVideo.adapter = videoListAdapter
         searchListviewVideo.layoutManager = LinearLayoutManager(context)
+//        searchListviewChannel.adapter = SearchChannelListAdapter()
+        searchListviewResult.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            if (!v.canScrollVertically(1)) {
+                Log.i("test", "BOTTOM SCROLL");
+            }
+//            if (scrollY == (v.measuredHeight - v.getChildAt(0).measuredHeight)) {
+//            }
+        })
+//        searchListviewVideo.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+//                super.onScrollStateChanged(recyclerView, newState)
+//            }
+//
+//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                super.onScrolled(recyclerView, dx, dy)
+//                val lastItemPosition =
+//                    (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
+//                if (!searchListviewVideo.canScrollVertically(1) && lastItemPosition == videoListAdapter.itemCount - 1) {
+//                    Log.d("test", "last")
+//                }
+//            }
+//
+//        })
         searchSearchViewSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (!query.isNullOrBlank()) {
-                    Log.d("test", query)
+                    videoListAdapter.refreshList()
                     getData(query)
                 }
                 return false
