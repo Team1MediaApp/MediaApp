@@ -4,8 +4,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.mediaapp.databinding.SearchChannelItemBinding
+import com.example.mediaapp.model.YoutubeSearchResponse
 
-class SearchChannelListAdapter : RecyclerView.Adapter<ViewHolder>() {
+class SearchChannelListAdapter() : RecyclerView.Adapter<ViewHolder>() {
+
 
     class ChannelViewHolder(private val binding: SearchChannelItemBinding) :
         ViewHolder(binding.root) {
