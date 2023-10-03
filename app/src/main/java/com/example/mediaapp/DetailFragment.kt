@@ -26,12 +26,13 @@ class DetailFragment : Fragment() {
     }
 
     // 공유하기 버튼 구현, onCreateView에 있는 shareButton() 포함
-    private fun shareButton(){
+    private fun shareButton() {
         binding.detailBtnShare.setOnClickListener {
             val shareIntent = Intent().apply() {
                 action = Intent.ACTION_SEND
                 putExtra(
-                    Intent.EXTRA_TEXT, "https://www.youtube.com/watch?v=$url") // <- 공유할 URL 적기, 파이어베이스 - 다이나믹 링크
+                    Intent.EXTRA_TEXT, "https://www.youtube.com/watch?v=$url"
+                ) // <- 공유할 URL 적기, 파이어베이스 - 다이나믹 링크
                 type = "text/plain"
             }
             startActivity(Intent.createChooser(shareIntent, "null"))
