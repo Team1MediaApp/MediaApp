@@ -17,7 +17,6 @@ class MypageFragment : Fragment() {
     private val binding get() = _binding!!
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -32,7 +31,7 @@ class MypageFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = MypageFragmentBinding.inflate(inflater, container, false)
 
 
@@ -80,6 +79,7 @@ class MypageFragment : Fragment() {
             button.setImageResource(R.drawable.mypage_button_off)
         }
     }
+
     override fun onStop() {
         super.onStop()
         val editor = sharedPreferences.edit()

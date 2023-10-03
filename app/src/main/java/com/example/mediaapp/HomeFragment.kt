@@ -23,7 +23,6 @@ import com.example.mediaapp.ui.adapter.ItemClick
 
 
 class HomeFragment : Fragment() {
-
     private var _binding: HomeFragmentBinding? = null
     private val binding get() = _binding!!
 
@@ -38,7 +37,7 @@ class HomeFragment : Fragment() {
     private val scrollRunnable = object : Runnable {
         override fun run() {
             autoScroll()
-            scrollHandler.postDelayed(this,5000)
+            scrollHandler.postDelayed(this, 5000)
         }
     }
 
@@ -61,27 +60,27 @@ class HomeFragment : Fragment() {
         searchViewModel.searchYoutube("1")
         searchViewModel.searchChannels("tv")
         searchViewModel.searchTrending()
-        searchViewModel.trendingResult.observe(viewLifecycleOwner){ response ->
-            val result:List<Item> = response.items
+        searchViewModel.trendingResult.observe(viewLifecycleOwner) { response ->
+            val result: List<Item> = response.items
 
             homeTrendingRcvViewAdapter.submitList(result)
         }
 
-        searchViewModel.searchResult.observe(viewLifecycleOwner){ response ->
-            val result:List<Item> = response.items
+        searchViewModel.searchResult.observe(viewLifecycleOwner) { response ->
+            val result: List<Item> = response.items
 
             homeCategoryRcvViewAdapter.submitList(result)
             Log.d("TAG", "submitList? : ${homeCategoryRcvViewAdapter.submitList(result)}")
 
         }
 
-        searchViewModel.channelResult.observe(viewLifecycleOwner){ response ->
-            val result:List<ChItem> = response.chItems
+        searchViewModel.channelResult.observe(viewLifecycleOwner) { response ->
+            val result: List<ChItem> = response.chItems
 
             homeChannelRcvAdapter.submitList(result)
         }
 
-        scrollHandler.postDelayed(scrollRunnable,5000)
+        scrollHandler.postDelayed(scrollRunnable, 5000)
     }
 
     private fun searchCategory() {
@@ -115,7 +114,8 @@ class HomeFragment : Fragment() {
         })
         binding.homeRcvCategoryList.apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = homeCategoryRcvViewAdapter
         }
 
@@ -139,7 +139,8 @@ class HomeFragment : Fragment() {
 
         binding.homeRcvTrendingList.apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = homeTrendingRcvViewAdapter
             addOnScrollListener(trendingRcvListener)
         }
@@ -165,12 +166,13 @@ class HomeFragment : Fragment() {
 
         binding.homeRcvChannelList.apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = homeChannelRcvAdapter
         }
     }
 
-    private val trendingRcvListener = object : RecyclerView.OnScrollListener(){
+    private val trendingRcvListener = object : RecyclerView.OnScrollListener() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
 
@@ -178,13 +180,14 @@ class HomeFragment : Fragment() {
                 RecyclerView.SCROLL_STATE_DRAGGING -> {
                     isUserScrolling = true
                 }
+
                 RecyclerView.SCROLL_STATE_IDLE -> {
-                    if (isUserScrolling){
+                    if (isUserScrolling) {
                         val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                         val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
                         val itemCount = recyclerView.adapter?.itemCount ?: 0
 
-                        if (lastVisibleItemPosition == itemCount -1 ){
+                        if (lastVisibleItemPosition == itemCount - 1) {
                             recyclerView.scrollToPosition(0)
                         }
                     }
@@ -193,12 +196,13 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
     private fun autoScroll() {
         val layoutManager = binding.homeRcvTrendingList.layoutManager as LinearLayoutManager
         val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
         val itemCount = homeTrendingRcvViewAdapter.itemCount
 
-        if (lastVisibleItemPosition < itemCount -1){
+        if (lastVisibleItemPosition < itemCount - 1) {
             binding.homeRcvTrendingList.smoothScrollToPosition(lastVisibleItemPosition + 1)
         } else {
             binding.homeRcvTrendingList.scrollToPosition(0)
