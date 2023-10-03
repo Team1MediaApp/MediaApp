@@ -10,10 +10,9 @@ import coil.load
 import com.example.mediaapp.data.model.channel.ChItem
 import com.example.mediaapp.databinding.HomeRcvItemChannelBinding
 
-class HomeChannelRcvAdapter() :
+class HomeChannelRcvAdapter(private val channelitemClick: ChannelItemClick) :
     ListAdapter<ChItem,HomeChannelRcvHolder>(DifferCallback.channelDifferCallback) {
 
-    private var itemClick: ItemClick? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeChannelRcvHolder {
         return HomeChannelRcvHolder(
@@ -22,8 +21,9 @@ class HomeChannelRcvAdapter() :
     }
 
     override fun onBindViewHolder(holder: HomeChannelRcvHolder, position: Int) {
+        val item = currentList[position]
         holder.itemView.setOnClickListener {
-            itemClick?.onClick(it, position)
+            channelitemClick?.onClick(item)
         }
         val category = currentList[position]
         val snippet = category.snippet

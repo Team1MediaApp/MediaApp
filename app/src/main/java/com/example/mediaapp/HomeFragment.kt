@@ -15,16 +15,16 @@ import com.example.mediaapp.data.model.channel.ChItem
 import com.example.mediaapp.util.CategoryId
 import com.example.mediaapp.data.model.video.Item
 import com.example.mediaapp.databinding.HomeFragmentBinding
+import com.example.mediaapp.ui.adapter.ChannelItemClick
 import com.example.mediaapp.ui.adapter.HomeCategoryRcvViewAdapter
 import com.example.mediaapp.ui.adapter.HomeChannelRcvAdapter
 import com.example.mediaapp.ui.adapter.HomeTrendingRcvAdapter
-import kotlinx.coroutines.Delay
-import okhttp3.internal.userAgent
+import com.example.mediaapp.ui.adapter.ItemClick
 
 
 class HomeFragment : Fragment() {
 
-    private var _binding:HomeFragmentBinding? = null
+    private var _binding: HomeFragmentBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var searchViewModel: SearchViewModel
@@ -47,7 +47,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = HomeFragmentBinding.inflate(inflater,container,false)
+        _binding = HomeFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -93,30 +93,81 @@ class HomeFragment : Fragment() {
     }
 
 
-    private fun setupRecyclerView(){
+    private fun setupRecyclerView() {
         val trendingSnapHelper = LinearSnapHelper()
         trendingSnapHelper.attachToRecyclerView(binding.homeRcvTrendingList)
-        homeCategoryRcvViewAdapter = HomeCategoryRcvViewAdapter()
+        homeCategoryRcvViewAdapter = HomeCategoryRcvViewAdapter(object : ItemClick {
+            override fun onClick(item: Item) {
+                val detail = DetailFragment().apply {
+                    arguments = Bundle().apply {
+                        putSerializable("Video_data", item)
+                    }
+                }
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.setCustomAnimations(
+                    R.anim.anim_right,
+                    R.anim.anim_right_exit
+                )
+                transaction.replace(R.id.main_frame, detail)
+                transaction.addToBackStack(null)
+                transaction.commit()
+            }
+        })
         binding.homeRcvCategoryList.apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = homeCategoryRcvViewAdapter
         }
-        homeTrendingRcvViewAdapter = HomeTrendingRcvAdapter()
+
+        homeTrendingRcvViewAdapter = HomeTrendingRcvAdapter(object : ItemClick {
+            override fun onClick(item: Item) {
+                val detail = DetailFragment().apply {
+                    arguments = Bundle().apply {
+                        putSerializable("Video_data", item)
+                    }
+                }
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.setCustomAnimations(
+                    R.anim.anim_right,
+                    R.anim.anim_right_exit
+                )
+                transaction.replace(R.id.main_frame, detail)
+                transaction.addToBackStack(null)
+                transaction.commit()
+            }
+        })
+
         binding.homeRcvTrendingList.apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = homeTrendingRcvViewAdapter
             addOnScrollListener(trendingRcvListener)
         }
-        homeChannelRcvAdapter = HomeChannelRcvAdapter()
+
+        homeChannelRcvAdapter = HomeChannelRcvAdapter(object : ChannelItemClick {
+            override fun onClick(item: ChItem) {
+                Log.d("jina", "homeChannelAdapter: onClick $item")
+                val detail = DetailFragment().apply {
+                    arguments = Bundle().apply {
+                        putSerializable("Video_data", item)
+                    }
+                }
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.setCustomAnimations(
+                    R.anim.anim_right,
+                    R.anim.anim_right_exit
+                )
+                transaction.replace(R.id.main_frame, detail)
+                transaction.addToBackStack(null)
+                transaction.commit()
+            }
+        })
+
         binding.homeRcvChannelList.apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = homeChannelRcvAdapter
         }
-
-
     }
 
     private val trendingRcvListener = object : RecyclerView.OnScrollListener(){
@@ -159,5 +210,4 @@ class HomeFragment : Fragment() {
         _binding = null
         scrollHandler.removeCallbacksAndMessages(scrollRunnable)
     }
-
 }
