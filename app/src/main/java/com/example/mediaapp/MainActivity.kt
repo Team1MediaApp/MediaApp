@@ -14,7 +14,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: MainActivityBinding
     private lateinit var currentFragment: Fragment
     private lateinit var fragmentManager: FragmentManager
-    // var like : ArrayList<itemModel(예시)> = ArrayList()
 
     private val homeFragment = HomeFragment()
     private val searchFragment = SearchFragment()
@@ -59,14 +58,4 @@ class MainActivity : AppCompatActivity() {
             currentFragment = fragment
         }
     }
-
-    // 좋아요 부분
-    // fun addLike(item: itemModel){
-    //     if(!like.contains(item)) {
-    //        like.add(item)
-    //     }
-    // }
-
-    // fun removeLike(item: itemModel) {
-    //     like.remove(item)
 }

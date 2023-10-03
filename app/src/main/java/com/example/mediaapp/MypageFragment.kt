@@ -25,7 +25,7 @@ class MypageFragment : Fragment() {
         }
     }
 
-    // 멤버 변수 : sharedPreferences와 isBookmarkChannalOn 선언
+//     멤버 변수 : sharedPreferences와 isBookmarkChannalOn 선언
     private lateinit var sharedPreferences: SharedPreferences
     private var isBookmarkChannalOn: Boolean = true
 
@@ -39,11 +39,11 @@ class MypageFragment : Fragment() {
         //내가찜한채널 버튼(이미지뷰) 변수설정
         val bookmarkChannalBtn = binding.mypageBtnBookmarkChannal
 
-        // SharedPreferences에서 버튼 상태 불러오기, 기본값은 찜한채널 알림설정 on
-        val sharedPreferences =
+//         SharedPreferences에서 버튼 상태 불러오기, 기본값은 찜한채널 알림설정 on
+        sharedPreferences =
             requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
 
-        // 로드 기본값 ON
+//         로드 기본값 ON
         var isBookmarkChannalOn = sharedPreferences.getBoolean("isBookmarkChannalOn", true)
 
         // 버튼 초기 상태 설정
