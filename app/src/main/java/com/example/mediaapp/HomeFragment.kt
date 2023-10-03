@@ -103,10 +103,14 @@ class HomeFragment : Fragment() {
                         putSerializable("Video_data", item)
                     }
                 }
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.main_frame, detail)
-                    .addToBackStack(null)
-                    .commit()
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.setCustomAnimations(
+                    R.anim.anim_right,
+                    R.anim.anim_right_exit
+                )
+                transaction.replace(R.id.main_frame, detail)
+                transaction.addToBackStack(null)
+                transaction.commit()
             }
         })
         binding.homeRcvCategoryList.apply {
@@ -122,10 +126,14 @@ class HomeFragment : Fragment() {
                         putSerializable("Video_data", item)
                     }
                 }
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.main_frame, detail)
-                    .addToBackStack(null)
-                    .commit()
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.setCustomAnimations(
+                    R.anim.anim_right,
+                    R.anim.anim_right_exit
+                )
+                transaction.replace(R.id.main_frame, detail)
+                transaction.addToBackStack(null)
+                transaction.commit()
             }
         })
 
@@ -144,10 +152,14 @@ class HomeFragment : Fragment() {
                         putSerializable("Video_data", item)
                     }
                 }
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.main_frame, detail)
-                    .addToBackStack(null)
-                    .commit()
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.setCustomAnimations(
+                    R.anim.anim_right,
+                    R.anim.anim_right_exit
+                )
+                transaction.replace(R.id.main_frame, detail)
+                transaction.addToBackStack(null)
+                transaction.commit()
             }
         })
 
