@@ -39,7 +39,6 @@ class MypageFragment : Fragment(), MypageDialogModifyFragment.OnDataModifiedList
     ): View? {
         _binding = MypageFragmentBinding.inflate(inflater, container, false)
 
-        //▽수정부분
 
         //내가찜한채널 버튼(이미지뷰),수정버튼 변수설정
         val bookmarkChannalBtn = binding.mypageBtnBookmarkChannal
