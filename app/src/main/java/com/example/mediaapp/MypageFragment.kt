@@ -17,7 +17,6 @@ class MypageFragment : Fragment() {
     private val binding get() = _binding!!
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -25,25 +24,23 @@ class MypageFragment : Fragment() {
         }
     }
 
-//     멤버 변수 : sharedPreferences와 isBookmarkChannalOn 선언
-    private lateinit var sharedPreferences: SharedPreferences
+    // 멤버 변수 : sharedPreferences와 isBookmarkChannalOn 선언
+    private val sharedPreferences: SharedPreferences by lazy {  // SharedPreferences에서 버튼 상태 불러오기, 기본값은 찜한채널 알림설정 on
+        requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+    }
     private var isBookmarkChannalOn: Boolean = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = MypageFragmentBinding.inflate(inflater, container, false)
 
 
         //내가찜한채널 버튼(이미지뷰) 변수설정
         val bookmarkChannalBtn = binding.mypageBtnBookmarkChannal
 
-//         SharedPreferences에서 버튼 상태 불러오기, 기본값은 찜한채널 알림설정 on
-        sharedPreferences =
-            requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-
-//         로드 기본값 ON
+        // 로드 기본값 ON
         var isBookmarkChannalOn = sharedPreferences.getBoolean("isBookmarkChannalOn", true)
 
         // 버튼 초기 상태 설정
@@ -59,7 +56,7 @@ class MypageFragment : Fragment() {
             editor.putBoolean("isBookmarkChannalOn", isBookmarkChannalOn)
 
             //저장이 잘 안될때는 apply()대신 commit()을 써보라고 함.(에뮬 종료후 다시켰을때)
-            editor.commit()
+            editor.apply()
 
             // 버튼 상태 변경
             setButtonState(bookmarkChannalBtn, isBookmarkChannalOn)
@@ -80,11 +77,17 @@ class MypageFragment : Fragment() {
             button.setImageResource(R.drawable.mypage_button_off)
         }
     }
+
     override fun onStop() {
         super.onStop()
         val editor = sharedPreferences.edit()
         editor.putBoolean("isBookmarkChannalOn", isBookmarkChannalOn)
-        editor.commit()
+        editor.apply()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
 

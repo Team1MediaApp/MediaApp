@@ -23,7 +23,6 @@ import com.example.mediaapp.ui.adapter.ItemClick
 
 
 class HomeFragment : Fragment() {
-
     private var _binding: HomeFragmentBinding? = null
     private val binding get() = _binding!!
 
@@ -199,22 +198,20 @@ class HomeFragment : Fragment() {
     }
 
     private fun autoScroll() {
-        _binding?.let { binding ->
-            val layoutManager = binding.homeRcvTrendingList.layoutManager as LinearLayoutManager
-            val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
-            val itemCount = homeTrendingRcvViewAdapter.itemCount
+        val layoutManager = binding.homeRcvTrendingList.layoutManager as LinearLayoutManager
+        val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+        val itemCount = homeTrendingRcvViewAdapter.itemCount
 
-            if (lastVisibleItemPosition < itemCount - 1) {
-                binding.homeRcvTrendingList.smoothScrollToPosition(lastVisibleItemPosition + 1)
-            } else {
-                binding.homeRcvTrendingList.scrollToPosition(0)
-            }
+        if (lastVisibleItemPosition < itemCount - 1) {
+            binding.homeRcvTrendingList.smoothScrollToPosition(lastVisibleItemPosition + 1)
+        } else {
+            binding.homeRcvTrendingList.scrollToPosition(0)
         }
     }
 
     override fun onDestroyView() {
-        scrollHandler.removeCallbacksAndMessages(null)
         super.onDestroyView()
+        scrollHandler.removeCallbacksAndMessages(null)
         _binding = null
     }
 }
