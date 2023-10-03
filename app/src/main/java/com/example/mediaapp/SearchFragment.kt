@@ -36,6 +36,8 @@ class SearchFragment : Fragment() {
 
     private fun initView() = with(binding) {
         searchSearchViewSearch.isSubmitButtonEnabled = true
+        searchListviewVideo.adapter = videoListAdapter
+        searchListviewVideo.layoutManager = LinearLayoutManager(context)
         searchSearchViewSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (!query.isNullOrBlank()) {
@@ -52,14 +54,26 @@ class SearchFragment : Fragment() {
     }
 
     private fun getData(query: String) {
+        val videoData: ArrayList<SearchVideoEntity> = arrayListOf()
         GlobalScope.launch(Dispatchers.IO) {
             kotlin.runCatching {
-                val videos = SearchRepositoryImpl().getSearchImage(query, "video")
-                val channels = SearchRepositoryImpl().getSearchImage(query, "channel")
+                val videos = SearchRepositoryImpl().getSearchImage(query, "video", 10)
+                val channels = SearchRepositoryImpl().getSearchImage(query, "channel", 1)
                 withContext(Dispatchers.Main) {
+                    videos.items?.forEach { it ->
+                        videoData.add(
+                            SearchVideoEntity(
+                                it.snippet?.channelTitle.toString(),
+                                it.snippet?.title.toString(),
+                                it.snippet?.thumbnails?.medium?.url.toString(),
+                                it.snippet?.publishedAt.toString(),
+                            )
+                        )
+                    }
+                    videoListAdapter.addDataList(videoData)
                 }
             }.onFailure {
-                Log.d("test", "response failed")
+                Log.d("network", "response failed")
             }
         }
     }
