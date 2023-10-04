@@ -209,6 +209,11 @@ class HomeFragment : Fragment() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        binding.homeSpnCategorySelect.dismiss()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         scrollHandler.removeCallbacksAndMessages(null)
