@@ -14,3 +14,5 @@ data class Item(
     @SerializedName("snippet")
     val snippet: Snippet
 ) : Serializable
+
+//url없음
