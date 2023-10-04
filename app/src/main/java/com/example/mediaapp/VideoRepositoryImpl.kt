@@ -5,28 +5,29 @@ import com.example.mediaapp.data.model.channel.ChannelResponse
 import com.example.mediaapp.data.model.video.SearchResponse
 import retrofit2.Response
 
-class VideoRepositoryImpl:VideoRepository {
+class VideoRepositoryImpl : VideoRepository {
     override suspend fun search(
-        key : String,
+        key: String,
         part: String,
         videoCategoryId: String,
         chart: String,
         hl: String,
         maxResults: Int,
-        regionCode: String
+        regionCode: String,
+        pageToken: String,
     ): Response<SearchResponse> {
-        return api.searchYoutube(key, part, videoCategoryId , chart, hl, maxResults, regionCode)
+        return api.searchYoutube(key, part, videoCategoryId, chart, hl, maxResults, regionCode, pageToken)
     }
 
     override suspend fun searchChannel(
-        key : String,
+        key: String,
         part: String,
         maxResults: Int,
         q: String,
         regionCode: String,
         type: String,
     ): Response<ChannelResponse> {
-        return api.searchChannel(key,part,maxResults,q,regionCode,type)
+        return api.searchChannel(key, part, maxResults, q, regionCode, type)
     }
 }
 

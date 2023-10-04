@@ -14,21 +14,22 @@ interface VideoInterface {
     suspend fun searchYoutube(
         @Query("key") key: String = Constants.API_KEY,
         @Query("part") part: String,
-        @Query("videoCategoryId") videoCategoryId :String,
-        @Query("chart") chart:String,
-        @Query("hl") hl:String,
-        @Query("maxResults")maxResults:Int,
-        @Query("regionCode")regionCode:String,
-    ) : Response<SearchResponse>
+        @Query("videoCategoryId") videoCategoryId: String,
+        @Query("chart") chart: String,
+        @Query("hl") hl: String,
+        @Query("maxResults") maxResults: Int,
+        @Query("regionCode") regionCode: String,
+        @Query("pageToken") pageToken: String,
+    ): Response<SearchResponse>
 
     @GET("search")
     suspend fun searchChannel(
-        @Query("key") key : String = Constants.API_KEY,
-        @Query("part") part : String,
-        @Query("maxResults") maxResults : Int,
+        @Query("key") key: String = Constants.API_KEY,
+        @Query("part") part: String,
+        @Query("maxResults") maxResults: Int,
         @Query("q") q: String,
-        @Query("regionCode") regionCode : String,
-        @Query("type")type : String,
+        @Query("regionCode") regionCode: String,
+        @Query("type") type: String,
     ): Response<ChannelResponse>
 }
 
