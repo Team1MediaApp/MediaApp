@@ -27,34 +27,36 @@ class MainActivity : AppCompatActivity() {
         currentFragment = homeFragment
 
         val searchRepository = VideoRepositoryImpl()
-        val factory = SearchViewModelProviderFactory(searchRepository,this)
-        searchViewModel = ViewModelProvider(this,factory)[SearchViewModel::class.java]
+        val factory = SearchViewModelProviderFactory(searchRepository, this)
+        searchViewModel = ViewModelProvider(this, factory)[SearchViewModel::class.java]
 
         supportFragmentManager.beginTransaction().replace(R.id.main_frame, HomeFragment()).commit()
-        // supportFragmentManager.beginTransaction().replace(R.id.main_frame, MypageFragment()).commit()
 
         val bottomNav = binding.mainNav
         bottomNav.setOnItemSelectedListener { menuItem ->
-            when(menuItem.title) {
+            when (menuItem.title) {
                 "Home" -> {
                     switchFragment(homeFragment)
                     true
                 }
+
                 "Search" -> {
                     switchFragment(searchFragment)
                     true
                 }
+
                 "MyPage" -> {
                     switchFragment(myPageFragment)
                     true
                 }
+
                 else -> false
             }
         }
     }
 
     private fun switchFragment(fragment: Fragment) {
-        if(fragment != currentFragment) {
+        if (fragment != currentFragment) {
             fragmentManager.beginTransaction().replace(R.id.main_frame, fragment).commit()
             currentFragment = fragment
         }

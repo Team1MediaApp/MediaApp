@@ -90,7 +90,8 @@ class MypageFragment : Fragment(), MypageDialogModifyFragment.OnDataModifiedList
 
 
         // 아이템 추가 예시
-        val videoItem = MyDataModel("영상 제목",  "https://cdn.aitimes.kr/news/photo/202303/27617_41603_044.jpg")
+        val videoItem =
+            MyDataModel("영상 제목", "https://cdn.aitimes.kr/news/photo/202303/27617_41603_044.jpg")
         items.add(videoItem)
         items.add(videoItem)
         items.add(videoItem)
@@ -220,8 +221,5 @@ class MypageFragment : Fragment(), MypageDialogModifyFragment.OnDataModifiedList
         val toggleButton = sharedPreferences.getBoolean("isMarkerShareOn", false)
         setButtonState(binding.mypageBtnBookmarkChannal, toggleButton)
     }
-
-
-
 
 }
