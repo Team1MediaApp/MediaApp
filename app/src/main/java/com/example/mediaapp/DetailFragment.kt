@@ -72,17 +72,22 @@ class DetailFragment : Fragment() {
         // 좋아요 버튼 구현, sharedPreference
         binding.detailBtnLike.setOnClickListener {
             val sharedPreferences = requireContext().getSharedPreferences(
-                "video_like",
-                Context.MODE_PRIVATE
+                "pref",
+                0  // 0이 Context.MODE_PRIVATE 역할을 한다.
             )
             val editor = sharedPreferences.edit()
-
             val like = sharedPreferences.getBoolean("video_liked", false)
 
             if (!like) {
                 editor.putBoolean("video_liked", true)
+                item?.let {
+                    editor.putString("pref_video_title", it.snippet.title)
+                    editor.putString("pref_video_thumnail", it.snippet.thumbnails.medium.url)
+                }
             } else {
                 editor.putBoolean("video_liked", false)
+                editor.remove("pref_video_title")
+                editor.remove("pref_video_thumnail")
             }
             editor.apply()
         }

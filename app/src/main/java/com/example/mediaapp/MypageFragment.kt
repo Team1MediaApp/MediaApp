@@ -26,7 +26,7 @@ class MypageFragment : Fragment() {
 
     // 멤버 변수 : sharedPreferences와 isBookmarkChannalOn 선언
     private val sharedPreferences: SharedPreferences by lazy {  // SharedPreferences에서 버튼 상태 불러오기, 기본값은 찜한채널 알림설정 on
-        requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        requireContext().getSharedPreferences("Prefs", Context.MODE_PRIVATE)
     }
     private var isBookmarkChannalOn: Boolean = true
 
@@ -35,6 +35,8 @@ class MypageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = MypageFragmentBinding.inflate(inflater, container, false)
+//        val prefVideoTitle = sharedPreferences.getString("pref_video_title","")
+//        val prefVideoThumnailUrl = sharedPreferences.getString("pref_video_thumnail", "")
 
 
         //내가찜한채널 버튼(이미지뷰) 변수설정
