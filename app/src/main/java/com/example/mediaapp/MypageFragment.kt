@@ -13,11 +13,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.mediaapp.data.MypageContext
 import com.example.mediaapp.databinding.MypageFragmentBinding
 import java.io.File
+import com.example.mediaapp.MypageItemAdapter
+import com.example.mediaapp.data.MyDataModel
 
 class MypageFragment : Fragment(), MypageDialogModifyFragment.OnDataModifiedListener {
     private var _binding: MypageFragmentBinding? = null
@@ -63,8 +67,38 @@ class MypageFragment : Fragment(), MypageDialogModifyFragment.OnDataModifiedList
         updateData()
         loadToggleButton()
 
+
+        //★★★★★리사이클러뷰 선언
+        val recyclerView = binding.mypageRecyclerview
+
+        //★★★★★ 중첩된 리사이클러 뷰 어댑터를 생성하고 설정
+        val items = generateSampleData()
+        val adapter = MypageItemAdapter(items)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.adapter = adapter
+
+
+
         return binding.root
+
     }
+
+    //★★★★★ 여기 아래부분도 리사이클러뷰를 위한 코드
+    private fun generateSampleData(): List<Any> {
+        val items = mutableListOf<Any>()
+
+        // "내가 찜한 영상" 섹션 타이틀 추가
+        items.add("내가 찜한 영상")
+
+        // 아이템 추가 예시
+        val videoItem = MyDataModel("영상 제목",  "영상 썸네일 URL")
+        items.add(videoItem)
+
+        // 다른 섹션과 아이템을 추가 (필요한 만큼 반복할 수 있음!)
+
+        return items
+    }
+
 
 
     override fun onDataModified() {
@@ -156,6 +190,8 @@ class MypageFragment : Fragment(), MypageDialogModifyFragment.OnDataModifiedList
         val toggleButton = sharedPreferences.getBoolean("isMarkerShareOn", false)
         setButtonState(binding.mypageBtnBookmarkChannal, toggleButton)
     }
+
+
 
 
 }
