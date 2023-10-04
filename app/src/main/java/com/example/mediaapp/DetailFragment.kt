@@ -73,7 +73,7 @@ class DetailFragment : Fragment() {
         binding.detailBtnLike.setOnClickListener {
             val sharedPreferences = requireContext().getSharedPreferences(
                 "pref",
-                0  // 0이 Context.MODE_PRIVATE 역할을 한다.
+                Context.MODE_PRIVATE
             )
             val editor = sharedPreferences.edit()
             val like = sharedPreferences.getBoolean("video_liked", false)
