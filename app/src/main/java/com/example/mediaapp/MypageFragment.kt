@@ -130,7 +130,7 @@ class MypageFragment : Fragment(), MypageDialogModifyFragment.OnDataModifiedList
                 binding.mypageTxtStatusMessage.text.toString()
             )
 
-        val backgroundImagePath = sharedPreferences.getString(MypageContext.KEY_MYIMAGE_BACK, null)
+        val backgroundImagePath = sharedPreferences.getString(MypageContext.KEY_MYIMAGE_BACK, "")
         backgroundImagePath?.let {
             val imageFile = File(it)
             if (imageFile.exists()) {
@@ -143,7 +143,7 @@ class MypageFragment : Fragment(), MypageDialogModifyFragment.OnDataModifiedList
         }
 
         // 프로필 이미지 경로 가져와서 Glide를 사용하여 이미지 로드하기
-        val profileImagePath = sharedPreferences.getString(MypageContext.KEY_MYIMAGE, null)
+        val profileImagePath = sharedPreferences.getString(MypageContext.KEY_MYIMAGE, "")
         profileImagePath?.let {
             val profileImageFile = File(it)
             if (profileImageFile.exists()) {

@@ -30,8 +30,8 @@ class MainActivity : AppCompatActivity() {
         val factory = SearchViewModelProviderFactory(searchRepository,this)
         searchViewModel = ViewModelProvider(this,factory)[SearchViewModel::class.java]
 
-//        supportFragmentManager.beginTransaction().replace(R.id.main_frame, HomeFragment()).commit()
-        supportFragmentManager.beginTransaction().replace(R.id.main_frame, MypageFragment()).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.main_frame, HomeFragment()).commit()
+        // supportFragmentManager.beginTransaction().replace(R.id.main_frame, MypageFragment()).commit()
 
         val bottomNav = binding.mainNav
         bottomNav.setOnItemSelectedListener { menuItem ->
