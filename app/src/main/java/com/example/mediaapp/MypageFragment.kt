@@ -9,15 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.mediaapp.data.MypageContext
 import com.example.mediaapp.databinding.MypageFragmentBinding
 import java.io.File
-import com.example.mediaapp.data.MyDataModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.example.mediaapp.util.Util
 
 class MypageFragment : Fragment(), MypageDialogModifyFragment.OnDataModifiedListener {
     private var _binding: MypageFragmentBinding? = null
@@ -54,6 +51,7 @@ class MypageFragment : Fragment(), MypageDialogModifyFragment.OnDataModifiedList
             setButtonState(bookmarkChannalBtn, updatedState)
         }
 
+
         //수정 버튼 클릭 리스너 설정
         binding.mypageBtnModifyProfile.setOnClickListener {
             val mypageDialog = MypageDialogModifyFragment()
@@ -66,70 +64,12 @@ class MypageFragment : Fragment(), MypageDialogModifyFragment.OnDataModifiedList
 
         //★★★★★리사이클러뷰 선언
         val MyRecy = binding.mypageMyRecyclerview
-        val FriendRecy = binding.mypageFrindRecyclerview
-        //★★★★★
-        val items = generateSampleData()
-        val adapter_My = MypageMyItemAdapter(requireContext(), items.toMutableList())
-
-        val friend_items = friendSampleData()
-        //마이페이지와 - 친구가 찜한영상이 다르게 나오려면 items, 를 바꿔준다.
-        val adapter_Friend = MypageMyItemAdapter(requireContext(),friend_items.toMutableList())
-        MyRecy.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        FriendRecy.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-
-        MyRecy.adapter = adapter_My
-        FriendRecy.adapter = adapter_Friend
+        val items = Util().getPrefBookmarkItems(requireContext())
+        val adapter = MypageMyItemAdapter(requireContext(), items)
+        MyRecy.adapter = adapter
+        adapter.notifyDataSetChanged()
 
         return binding.root
-
-    }
-
-    //★★★★★ 여기 아래 데이터 받아오면 넣으면 됨 ( 디테일 - 마이페이지)
-    private fun generateSampleData(): List<MyDataModel> {
-        val items = mutableListOf<MyDataModel>()
-
-
-        // 아이템 추가 예시
-        val videoItem =
-            MyDataModel("영상 제목", "https://cdn.aitimes.kr/news/photo/202303/27617_41603_044.jpg")
-        items.add(videoItem)
-        items.add(videoItem)
-        items.add(videoItem)
-        items.add(videoItem)
-        items.add(videoItem)
-        items.add(videoItem)
-        items.add(videoItem)
-        items.add(videoItem)
-        items.add(videoItem)
-        items.add(videoItem)
-        items.add(videoItem)
-
-        // 다른 섹션과 아이템을 추가 (필요한 만큼 반복할 수 있음!)
-
-        return items
-    }
-
-    private fun friendSampleData(): List<MyDataModel> {
-        val items = mutableListOf<MyDataModel>()
-
-
-        // 아이템 추가 예시
-        val videoItem = MyDataModel("영상 제목",  "https://cdn.aitimes.kr/news/photo/202303/27617_41603_044.jpg")
-        items.add(videoItem)
-        items.add(videoItem)
-        items.add(videoItem)
-        items.add(videoItem)
-        items.add(videoItem)
-        items.add(videoItem)
-        items.add(videoItem)
-        items.add(videoItem)
-        items.add(videoItem)
-        items.add(videoItem)
-        items.add(videoItem)
-
-        // 다른 섹션과 아이템을 추가 (필요한 만큼 반복할 수 있음!)
-
-        return items
     }
 
     override fun onDataModified() {
@@ -187,7 +127,7 @@ class MypageFragment : Fragment(), MypageDialogModifyFragment.OnDataModifiedList
             }
         }
 
-        //아래 추가부문
+//        아래 추가부문
         val profileImageFile = File(profileImagePath)
         if (profileImageFile.exists()) {
             Glide.with(requireActivity())
@@ -198,7 +138,6 @@ class MypageFragment : Fragment(), MypageDialogModifyFragment.OnDataModifiedList
         } else {
             Log.e("ImageLoad", "Profile image file does not exist at path: $profileImagePath")
         }
-
     }
 
 
@@ -221,5 +160,11 @@ class MypageFragment : Fragment(), MypageDialogModifyFragment.OnDataModifiedList
         val toggleButton = sharedPreferences.getBoolean("isMarkerShareOn", false)
         setButtonState(binding.mypageBtnBookmarkChannal, toggleButton)
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 
 }
