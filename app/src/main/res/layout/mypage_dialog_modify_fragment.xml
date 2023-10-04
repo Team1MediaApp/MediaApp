@@ -36,16 +36,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/mypagemodify_btn_exit"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/mypagemodify_x"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/mypagemodify_img_profile"
@@ -54,6 +44,7 @@
             android:background="@drawable/kit_mypage_profile_image_circle"
             android:padding="15dp"
             android:src="@drawable/mypage_profile"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="@+id/mypagemodify_img_backgroundprofile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
