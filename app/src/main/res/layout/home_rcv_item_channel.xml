@@ -13,6 +13,8 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:text="Title"
+        android:maxLines="1"
+        android:ellipsize="marquee"
         android:background="@color/theme_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

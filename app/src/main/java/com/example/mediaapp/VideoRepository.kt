@@ -9,15 +9,16 @@ interface VideoRepository {
     suspend fun search(
         key: String,
         part: String,
-        videoCategoryId : String,
-        chart : String,
-        hl : String,
+        videoCategoryId: String,
+        chart: String,
+        hl: String,
         maxResults: Int,
         regionCode: String,
+        pageToken: String,
     ): Response<SearchResponse>
 
     suspend fun searchChannel(
-        key : String,
+        key: String,
         part: String,
         maxResults: Int,
         q: String,
