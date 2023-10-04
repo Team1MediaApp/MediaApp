@@ -5,3 +5,4 @@ class MyDataModel (
     val myThumbnailUrl: String // 영상 썸네일 URL
     )
 //일단 찜한 내용이 필요하므로, 임시로 MyDataModel을 만들어둠.
+//이걸 모델로 쓸수잇듬
