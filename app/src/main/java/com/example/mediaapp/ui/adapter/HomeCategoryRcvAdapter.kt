@@ -10,10 +10,8 @@ import coil.load
 import com.example.mediaapp.data.model.video.Item
 import com.example.mediaapp.databinding.HomeRcvItemCategoryBinding
 
-class HomeCategoryRcvViewAdapter() :
+class HomeCategoryRcvViewAdapter(private val itemClick: ItemClick) :
     ListAdapter<Item,HomeCategoryRcvHolder>(DifferCallback.differCallback) {
-
-    private var itemClick: ItemClick? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeCategoryRcvHolder {
         return HomeCategoryRcvHolder(
@@ -22,14 +20,14 @@ class HomeCategoryRcvViewAdapter() :
     }
 
     override fun onBindViewHolder(holder: HomeCategoryRcvHolder, position: Int) {
+        val item = currentList[position]
         holder.itemView.setOnClickListener {
-            itemClick?.onClick(it, position)
+            itemClick?.onClick(item)
         }
         val category = currentList[position]
         val snippet = category.snippet
         val thumbnails = snippet.thumbnails
 
-//        category.snippet.categoryId
 
         holder.apply {
             holder.testThumbnails.load(thumbnails.medium.url)
@@ -44,9 +42,3 @@ class HomeCategoryRcvHolder(binding: HomeRcvItemCategoryBinding) :
     val testThumbnails : ImageView = binding.homeRcvImgCategoryVideoThumbnail
     val testItemID:TextView = binding.homeRcvTvCategoryVideoTitle
 }
-
-
-
-
-
-

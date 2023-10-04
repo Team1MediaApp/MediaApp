@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -43,6 +44,9 @@ android {
 
 dependencies {
 
+    // power spinner
+    implementation("com.github.skydoves:powerspinner:1.2.7")
+    
     // gson converter
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")

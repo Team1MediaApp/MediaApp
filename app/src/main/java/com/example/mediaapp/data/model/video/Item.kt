@@ -2,6 +2,7 @@ package com.example.mediaapp.data.model.video
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Item(
     @SerializedName("etag")
@@ -12,4 +13,4 @@ data class Item(
     val kind: String,
     @SerializedName("snippet")
     val snippet: Snippet
-)
+) : Serializable
