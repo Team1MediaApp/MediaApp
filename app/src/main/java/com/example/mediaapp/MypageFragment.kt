@@ -1,7 +1,7 @@
 package com.example.mediaapp
 
 import android.content.Context
-import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,61 +9,195 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.mediaapp.data.MypageContext
 import com.example.mediaapp.databinding.MypageFragmentBinding
+import java.io.File
+import com.example.mediaapp.data.MyDataModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
-
-class MypageFragment : Fragment() {
+class MypageFragment : Fragment(), MypageDialogModifyFragment.OnDataModifiedListener {
     private var _binding: MypageFragmentBinding? = null
     private val binding get() = _binding!!
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
-    }
-
-    // 멤버 변수 : sharedPreferences와 isBookmarkChannalOn 선언
-    private val sharedPreferences: SharedPreferences by lazy {  // SharedPreferences에서 버튼 상태 불러오기, 기본값은 찜한채널 알림설정 on
-        requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-    }
-    private var isBookmarkChannalOn: Boolean = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = MypageFragmentBinding.inflate(inflater, container, false)
 
+        // SharedPreferences 초기화
+        val sharedPreferences =
+            requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
 
-        //내가찜한채널 버튼(이미지뷰) 변수설정
+        //내가찜한채널 버튼(이미지뷰),수정버튼 변수설정
         val bookmarkChannalBtn = binding.mypageBtnBookmarkChannal
 
-        // 로드 기본값 ON
-        var isBookmarkChannalOn = sharedPreferences.getBoolean("isBookmarkChannalOn", true)
+        // SharedPreferences에서 버튼 상태 불러오기, 기본값은 찜한채널 알림설정 on
+        //반전하는 변수는 밖으로 빼줄것
+        val isBookmarkChannalOn = sharedPreferences.getBoolean("isBookmarkChannalOn", false)
+        var updatedState = isBookmarkChannalOn
 
-        // 버튼 초기 상태 설정
-        setButtonState(bookmarkChannalBtn, isBookmarkChannalOn)
+
 
         bookmarkChannalBtn.setOnClickListener {
-            val editor = sharedPreferences.edit()
-
             // 버튼 상태 반전
-            isBookmarkChannalOn = !isBookmarkChannalOn
-
-            // 현재 버튼 저장
-            editor.putBoolean("isBookmarkChannalOn", isBookmarkChannalOn)
-
-            //저장이 잘 안될때는 apply()대신 commit()을 써보라고 함.(에뮬 종료후 다시켰을때)
+            updatedState = !updatedState
+            val editor = sharedPreferences.edit()
+            editor.putBoolean("isBookmarkChannalOn", updatedState)
+            // 변경사항 저장
             editor.apply()
-
             // 버튼 상태 변경
-            setButtonState(bookmarkChannalBtn, isBookmarkChannalOn)
-
+            setButtonState(bookmarkChannalBtn, updatedState)
         }
 
+        //수정 버튼 클릭 리스너 설정
+        binding.mypageBtnModifyProfile.setOnClickListener {
+            val mypageDialog = MypageDialogModifyFragment()
+            mypageDialog.setOnDataModifiedListener(this)
+            mypageDialog.show(parentFragmentManager, "MypageDialogModifyFragment")
+        }
+        updateData()
+        loadToggleButton()
+
+
+        //★★★★★리사이클러뷰 선언
+        val MyRecy = binding.mypageMyRecyclerview
+        val FriendRecy = binding.mypageFrindRecyclerview
+        //★★★★★
+        val items = generateSampleData()
+        val adapter_My = MypageMyItemAdapter(requireContext(), items.toMutableList())
+
+        val friend_items = friendSampleData()
+        //마이페이지와 - 친구가 찜한영상이 다르게 나오려면 items, 를 바꿔준다.
+        val adapter_Friend = MypageMyItemAdapter(requireContext(),friend_items.toMutableList())
+        MyRecy.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        FriendRecy.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+        MyRecy.adapter = adapter_My
+        FriendRecy.adapter = adapter_Friend
+
         return binding.root
+
+    }
+
+    //★★★★★ 여기 아래 데이터 받아오면 넣으면 됨 ( 디테일 - 마이페이지)
+    private fun generateSampleData(): List<MyDataModel> {
+        val items = mutableListOf<MyDataModel>()
+
+
+        // 아이템 추가 예시
+        val videoItem =
+            MyDataModel("영상 제목", "https://cdn.aitimes.kr/news/photo/202303/27617_41603_044.jpg")
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+
+        // 다른 섹션과 아이템을 추가 (필요한 만큼 반복할 수 있음!)
+
+        return items
+    }
+
+    private fun friendSampleData(): List<MyDataModel> {
+        val items = mutableListOf<MyDataModel>()
+
+
+        // 아이템 추가 예시
+        val videoItem = MyDataModel("영상 제목",  "https://cdn.aitimes.kr/news/photo/202303/27617_41603_044.jpg")
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+
+        // 다른 섹션과 아이템을 추가 (필요한 만큼 반복할 수 있음!)
+
+        return items
+    }
+
+    override fun onDataModified() {
+        updateData()  // 데이터 수정 시에도 동일한 데이터 갱신 메소드 호출
+    }
+
+    private fun updateData() {
+        // SharedPreferences에서 정보 가져오기
+        val sharedPreferences = requireActivity().getSharedPreferences(
+            MypageContext.PREF_MYPAGE,
+            Context.MODE_PRIVATE
+        )
+
+        // 이름 가져와서 설정하기
+        binding.mypageTxtName.text =
+            sharedPreferences.getString(
+                MypageContext.KEY_MYNAME,
+                binding.mypageTxtName.text.toString()
+            )
+
+        // 상태메세지 가져와서 설정하기
+        binding.mypageTxtStatusMessage.text =
+            sharedPreferences.getString(
+                MypageContext.KEY_MYSTATUS,
+                binding.mypageTxtStatusMessage.text.toString()
+            )
+
+        val backgroundImagePath = sharedPreferences.getString(MypageContext.KEY_MYIMAGE_BACK, "")
+        backgroundImagePath?.let {
+            val imageFile = File(it)
+            if (imageFile.exists()) {
+                Glide.with(requireActivity())
+                    .load(Uri.fromFile(imageFile))
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .into(binding.mypageImgBackgroundprofile)
+            }
+        }
+
+        // 프로필 이미지 경로 가져와서 Glide를 사용하여 이미지 로드하기
+        val profileImagePath = sharedPreferences.getString(MypageContext.KEY_MYIMAGE, "")
+        profileImagePath?.let {
+            val profileImageFile = File(it)
+            if (profileImageFile.exists()) {
+                Glide.with(requireActivity())
+                    .load(Uri.fromFile(profileImageFile))
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .into(binding.mypageImgProfile)
+            } else {
+                Log.e(
+                    "ImageLoad",
+                    "Profile image file does not exist at path: $profileImagePath"
+                )
+            }
+        }
+
+        //아래 추가부문
+        val profileImageFile = File(profileImagePath)
+        if (profileImageFile.exists()) {
+            Glide.with(requireActivity())
+                .load(Uri.fromFile(profileImageFile))
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .into(binding.mypageImgProfile)
+        } else {
+            Log.e("ImageLoad", "Profile image file does not exist at path: $profileImagePath")
+        }
 
     }
 
@@ -78,16 +212,14 @@ class MypageFragment : Fragment() {
         }
     }
 
-    override fun onStop() {
-        super.onStop()
-        val editor = sharedPreferences.edit()
-        editor.putBoolean("isBookmarkChannalOn", isBookmarkChannalOn)
-        editor.apply()
+    private fun loadToggleButton() {
+        val sharedPreferences = requireActivity().getSharedPreferences(
+            "MyPrefs",
+            Context.MODE_PRIVATE
+        )
+        //저장된값 불러오기(버튼)
+        val toggleButton = sharedPreferences.getBoolean("isMarkerShareOn", false)
+        setButtonState(binding.mypageBtnBookmarkChannal, toggleButton)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }
-
