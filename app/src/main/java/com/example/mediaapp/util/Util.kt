@@ -12,7 +12,6 @@ fun addPrefItem(context: Context, item: Item) {
     val editor = prefs.edit()
     val gson = GsonBuilder().create()
     editor.putString(item.snippet.title, gson.toJson(item))
-    editor.putString(item.snippet.thumbnails.medium.url, gson.toJson(item))
         editor.apply()
 }
 
@@ -20,7 +19,6 @@ fun addPrefItem(context: Context, item: Item) {
         val prefs = context.getSharedPreferences("videoID", Activity.MODE_PRIVATE)
         val editor = prefs.edit()
         editor.remove(item.snippet.title)
-        editor.remove(item.snippet.thumbnails.medium.url)
         editor.apply()
     }
 
