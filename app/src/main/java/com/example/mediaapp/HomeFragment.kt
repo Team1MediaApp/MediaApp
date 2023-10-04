@@ -41,6 +41,8 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private var _pageToken: String? = null
+    private val pageToken get() = _pageToken!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,12 +56,13 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         searchViewModel = (activity as MainActivity).searchViewModel
 
-
         setupRecyclerView()
         searchCategory()
-        searchViewModel.searchYoutube("1")
+        searchViewModel.searchYoutube("1", "")
         searchViewModel.searchChannels("tv")
         searchViewModel.searchTrending()
+
+
         searchViewModel.trendingResult.observe(viewLifecycleOwner) { response ->
             val result: List<Item> = response.items
 
@@ -68,10 +71,10 @@ class HomeFragment : Fragment() {
 
         searchViewModel.searchResult.observe(viewLifecycleOwner) { response ->
             val result: List<Item> = response.items
+            _pageToken = response.nextPageToken
 
             homeCategoryRcvViewAdapter.submitList(result)
-            Log.d("TAG", "submitList? : ${homeCategoryRcvViewAdapter.submitList(result)}")
-
+            homeCategoryRcvViewAdapter.notifyDataSetChanged()
         }
 
         searchViewModel.channelResult.observe(viewLifecycleOwner) { response ->
@@ -86,7 +89,7 @@ class HomeFragment : Fragment() {
     private fun searchCategory() {
 
         binding.homeSpnCategorySelect.setOnSpinnerItemSelectedListener<String> { _, _, _, query ->
-            searchViewModel.searchYoutube(CategoryId.categoryMap[query] ?: "1")
+            searchViewModel.searchYoutube(CategoryId.categoryMap[query] ?: "1", "")
             searchViewModel.searchChannels(query)
         }
     }
@@ -117,6 +120,7 @@ class HomeFragment : Fragment() {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = homeCategoryRcvViewAdapter
+            addOnScrollListener(categoryRcvListener)
         }
 
         homeTrendingRcvViewAdapter = HomeTrendingRcvAdapter(object : ItemClick {
@@ -173,9 +177,9 @@ class HomeFragment : Fragment() {
     }
 
     private val trendingRcvListener = object : RecyclerView.OnScrollListener() {
+
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
-
             when (newState) {
                 RecyclerView.SCROLL_STATE_DRAGGING -> {
                     isUserScrolling = true
@@ -189,6 +193,30 @@ class HomeFragment : Fragment() {
 
                         if (lastVisibleItemPosition == itemCount - 1) {
                             recyclerView.scrollToPosition(0)
+                        }
+                    }
+                    isUserScrolling = false
+                }
+            }
+        }
+    }
+
+    private val categoryRcvListener = object : RecyclerView.OnScrollListener() {
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            when (newState) {
+                RecyclerView.SCROLL_STATE_DRAGGING -> {
+                    isUserScrolling = true
+                }
+
+                RecyclerView.SCROLL_STATE_IDLE -> {
+                    if (isUserScrolling) {
+                        val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                        val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+                        val itemCount = recyclerView.adapter?.itemCount ?: 0
+
+                        if (lastVisibleItemPosition == itemCount - 1) {
+                            searchViewModel.searchYoutubeNextPage("17", pageToken)
                         }
                     }
                     isUserScrolling = false
