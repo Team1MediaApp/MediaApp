@@ -1,12 +1,8 @@
 package com.example.mediaapp
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,14 +10,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.mediaapp.data.MypageContext
 import com.example.mediaapp.databinding.MypageFragmentBinding
 import java.io.File
-import com.example.mediaapp.MypageItemAdapter
 import com.example.mediaapp.data.MyDataModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class MypageFragment : Fragment(), MypageDialogModifyFragment.OnDataModifiedListener {
     private var _binding: MypageFragmentBinding? = null
@@ -69,29 +65,42 @@ class MypageFragment : Fragment(), MypageDialogModifyFragment.OnDataModifiedList
 
 
         //★★★★★리사이클러뷰 선언
-        val recyclerView = binding.mypageRecyclerview
-
-        //★★★★★ 중첩된 리사이클러 뷰 어댑터를 생성하고 설정
+        val MyRecy = binding.mypageMyRecyclerview
+        val FriendRecy = binding.mypageFrindRecyclerview
+        //★★★★★
         val items = generateSampleData()
-        val adapter = MypageItemAdapter(items)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        recyclerView.adapter = adapter
+        val adapter_My = MypageMyItemAdapter(requireContext(), items.toMutableList())
 
+        val friend_items = friendSampleData()
+        //마이페이지와 - 친구가 찜한영상이 다르게 나오려면 items, 를 바꿔준다.
+        val adapter_Friend = MypageMyItemAdapter(requireContext(),friend_items.toMutableList())
+        MyRecy.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        FriendRecy.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
+        MyRecy.adapter = adapter_My
+        FriendRecy.adapter = adapter_Friend
 
         return binding.root
 
     }
 
-    //★★★★★ 여기 아래부분도 리사이클러뷰를 위한 코드
-    private fun generateSampleData(): List<Any> {
-        val items = mutableListOf<Any>()
+    //★★★★★ 여기 아래 데이터 받아오면 넣으면 됨 ( 디테일 - 마이페이지)
+    private fun generateSampleData(): List<MyDataModel> {
+        val items = mutableListOf<MyDataModel>()
 
-        // "내가 찜한 영상" 섹션 타이틀 추가
-        items.add("내가 찜한 영상")
 
         // 아이템 추가 예시
-        val videoItem = MyDataModel("영상 제목",  "영상 썸네일 URL")
+        val videoItem = MyDataModel("영상 제목",  "https://cdn.aitimes.kr/news/photo/202303/27617_41603_044.jpg")
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
         items.add(videoItem)
 
         // 다른 섹션과 아이템을 추가 (필요한 만큼 반복할 수 있음!)
@@ -99,7 +108,28 @@ class MypageFragment : Fragment(), MypageDialogModifyFragment.OnDataModifiedList
         return items
     }
 
+    private fun friendSampleData(): List<MyDataModel> {
+        val items = mutableListOf<MyDataModel>()
 
+
+        // 아이템 추가 예시
+        val videoItem = MyDataModel("영상 제목",  "https://cdn.aitimes.kr/news/photo/202303/27617_41603_044.jpg")
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+        items.add(videoItem)
+
+        // 다른 섹션과 아이템을 추가 (필요한 만큼 반복할 수 있음!)
+
+        return items
+    }
 
     override fun onDataModified() {
         updateData()  // 데이터 수정 시에도 동일한 데이터 갱신 메소드 호출
