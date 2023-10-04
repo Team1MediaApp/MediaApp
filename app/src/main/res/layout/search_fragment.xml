@@ -23,6 +23,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_toolbar_appbar"
+        app:layout_constraintBottom_toTopOf="@id/search_listview_result"
         app:queryHint="검색할 채널이나 영상 제목" />
 
     <androidx.core.widget.NestedScrollView
@@ -71,7 +72,6 @@
                 app:layout_constraintBottom_toBottomOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     </androidx.core.widget.NestedScrollView>
 
