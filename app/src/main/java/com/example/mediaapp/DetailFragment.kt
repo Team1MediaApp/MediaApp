@@ -4,20 +4,25 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import coil.load
 import com.example.mediaapp.data.model.video.Item
 import com.example.mediaapp.data.model.video.Thumbnails
 import com.example.mediaapp.databinding.DetailFragmentBinding
+import com.example.mediaapp.util.Util
 
 class DetailFragment : Fragment() {
     private var _binding: DetailFragmentBinding? = null
     private val binding get() = _binding!!
 
     private var url: String? = null
+
+    private var islike = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,38 +68,35 @@ class DetailFragment : Fragment() {
                 R.anim.anim_left,
                 R.anim.anim_left_exit
             )
-
             transaction.replace(R.id.detail_framelayout, HomeFragment())
             transaction.addToBackStack(null)
             transaction.commit()
         }
 
         // 좋아요 버튼 구현, sharedPreference
+        // 키워드 : 직렬화
+        // 1. sharedPr에서 저장되어있는 값을 가져와서 json형태로 변경 후 data를 넣어준다. (json object 필수... 공부해)
+        // 2. 꺼내 올 때는 sharedPr에서 저장되어있는 값을 Gson을 사용하여 원하는 객체 리스트로 변경하여 사용한다.
         binding.detailBtnLike.setOnClickListener {
-            val sharedPreferences = requireContext().getSharedPreferences(
-                "pref",
-                Context.MODE_PRIVATE
-            )
-            val editor = sharedPreferences.edit()
-            val like = sharedPreferences.getBoolean("video_liked", false)
-
-            if (!like) {
-                editor.putBoolean("video_liked", true)
-                item?.let {
-                    editor.putString("pref_video_title", it.snippet.title)
-                    editor.putString("pref_video_thumnail", it.snippet.thumbnails.medium.url)
+            item?.let {
+                islike = Util().BookmarkCheck(requireContext(),it.snippet.title)
+                if (islike) {
+                    Util().deletePrefItem(requireContext(), it)
+                    islike = false
+                    Toast.makeText(context, "북마크 취소!", Toast.LENGTH_SHORT).show()
+//                    Log.d("BookmarkLog", "북마크 취소됨: ${it.snippet.title}")
+                } else {
+                    Util().addPrefItem(requireContext(), it)
+                    islike = true
+                    Toast.makeText(context, "북마크 추가!", Toast.LENGTH_SHORT).show()
+//                    Log.d("BookmarkLog", "북마크 추가됨: ${it.snippet.title}")
                 }
-            } else {
-                editor.putBoolean("video_liked", false)
-                editor.remove("pref_video_title")
-                editor.remove("pref_video_thumnail")
             }
-            editor.apply()
         }
     }
 
-        override fun onDestroyView() {
-            super.onDestroyView()
-            _binding = null
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
+}
