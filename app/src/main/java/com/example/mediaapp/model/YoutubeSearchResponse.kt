@@ -3,89 +3,91 @@ package com.example.mediaapp.model
 
 import com.google.gson.annotations.SerializedName
 
-data class YoutubeSearchModel(
-    @SerializedName("etag")
-    val etag: String,
-    @SerializedName("items")
-    val items: List<Item>,
-    @SerializedName("kind")
-    val kind: String,
+data class YoutubeSearchResponse(
+    @SerializedName("kind") // youtube#searchResult
+    val kind: String?,
+    @SerializedName("etag") // etag
+    val etag: String?,
     @SerializedName("nextPageToken")
-    val nextPageToken: String,
-    @SerializedName("pageInfo")
-    val pageInfo: PageInfo,
+    val nextPageToken: String?,
+    @SerializedName("prevPageToken")
+    val prevPageToken: String?,
     @SerializedName("regionCode")
-    val regionCode: String
+    val regionCode: String?,
+    @SerializedName("pageInfo")
+    val pageInfo: PageInfo?,
+    @SerializedName("items")
+    val items: List<Items>?,
 ) {
-    data class Item(
+    data class Items(
         @SerializedName("etag")
-        val etag: String,
+        val etag: String?,
         @SerializedName("id")
-        val id: Id,
+        val id: Id?,
         @SerializedName("kind")
-        val kind: String,
+        val kind: String?,
         @SerializedName("snippet")
-        val snippet: Snippet
+        val snippet: Snippet?,
     ) {
         data class Id(
             @SerializedName("kind")
-            val kind: String,
+            val kind: String?,
             @SerializedName("videoId")
-            val videoId: String
+            val videoId: String?,
         )
 
         data class Snippet(
             @SerializedName("channelId")
-            val channelId: String,
+            val channelId: String?,
             @SerializedName("channelTitle")
-            val channelTitle: String,
+            val channelTitle: String?,
             @SerializedName("description")
-            val description: String,
+            val description: String?,
             @SerializedName("liveBroadcastContent")
-            val liveBroadcastContent: String,
+            val liveBroadcastContent: String?,
             @SerializedName("publishTime")
-            val publishTime: String,
+            val publishTime: String?,
             @SerializedName("publishedAt")
-            val publishedAt: String,
+            val publishedAt: String?,
             @SerializedName("thumbnails")
-            val thumbnails: Thumbnails,
+            val thumbnails: Thumbnails?,
             @SerializedName("title")
-            val title: String
+            val title: String?,
         ) {
             data class Thumbnails(
                 @SerializedName("default")  // 기본 썸네일 이미지, 120x90(pixels)
-                val default: Default,
+                val default: Default?,
                 @SerializedName("high") // 고해상도 480x360
-                val high: High,
+                val high: High?,
                 @SerializedName("medium")
-                val medium: Medium
+                val medium: Medium?,
             ) {
 
                 data class Default(
                     @SerializedName("height")
-                    val height: Int,
+                    val height: Int?,
                     @SerializedName("url")
-                    val url: String,
+                    val url: String?,
                     @SerializedName("width")
-                    val width: Int
+                    val width: Int?,
                 )
 
                 data class High(
                     @SerializedName("height")
-                    val height: Int,
+                    val height: Int?,
                     @SerializedName("url")
-                    val url: String,
+                    val url: String?,
                     @SerializedName("width")
-                    val width: Int
+                    val width: Int?,
                 )
 
                 data class Medium(
                     @SerializedName("height")
-                    val height: Int,
+                    val height: Int?,
                     @SerializedName("url")
-                    val url: String,
+                    val url: String?,
                     @SerializedName("width")
-                    val width: Int
+                    val width: Int?,
                 )
             }
         }
@@ -93,8 +95,8 @@ data class YoutubeSearchModel(
 
     data class PageInfo(
         @SerializedName("resultsPerPage")
-        val resultsPerPage: Int,
+        val resultsPerPage: Int?,
         @SerializedName("totalResults")
-        val totalResults: Int
+        val totalResults: Int?,
     )
 }

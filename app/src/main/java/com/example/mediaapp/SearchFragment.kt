@@ -7,15 +7,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.core.widget.NestedScrollView
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mediaapp.data.api.SearchRepositoryImpl
 import com.example.mediaapp.databinding.SearchFragmentBinding
+import com.example.mediaapp.model.SearchChannelEntity
+import com.example.mediaapp.model.SearchVideoEntity
+import com.example.mediaapp.ui.adapter.SearchChannelListAdapter
+import com.example.mediaapp.ui.adapter.SearchVideoListAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class SearchFragment : Fragment() {
     private var _binding: SearchFragmentBinding? = null
     private val binding get() = _binding!!
+
+    private var nextPageToken: String? = null
+    private var userQuery: String? = null
+    private var nextProgress: Boolean = true
+    private val videoListAdapter by lazy {
+        SearchVideoListAdapter()
+    }
+    private val channelListAdapter by lazy {
+        SearchChannelListAdapter()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,11 +53,24 @@ class SearchFragment : Fragment() {
 
     private fun initView() = with(binding) {
         searchSearchViewSearch.isSubmitButtonEnabled = true
+        searchListviewVideo.adapter = videoListAdapter
+        searchListviewVideo.layoutManager = LinearLayoutManager(context)
+        searchListviewChannel.adapter = channelListAdapter
+        searchListviewChannel.layoutManager = LinearLayoutManager(context)
+        searchListviewResult.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            val totalHeight = searchListviewResult.getChildAt(0).height
+            val scrolledHeight = scrollY + searchListviewResult.height
+            if (scrolledHeight >= totalHeight && nextProgress) {
+                getMoreData()
+            }
+        })
         searchSearchViewSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (!query.isNullOrBlank()) {
-                    Log.d("test", query)
+                    videoListAdapter.refreshList()
+                    channelListAdapter.refreshList()
                     getData(query)
+                    userQuery = query
                 }
                 return false
             }
@@ -50,15 +81,76 @@ class SearchFragment : Fragment() {
         })
     }
 
-    private fun getData(query: String) {
+    private fun getMoreData() {
+        nextProgress = false
+        if (nextPageToken.isNullOrBlank() && userQuery.isNullOrBlank()) return
+        val videoData: ArrayList<SearchVideoEntity> = arrayListOf()
+        binding.searchProgressBar.visibility = View.VISIBLE
         GlobalScope.launch(Dispatchers.IO) {
             kotlin.runCatching {
-                val result = NetworkRepository().searchYoutube(query)
+                val videos = SearchRepositoryImpl().getSearchImageByPageToken(
+                    nextPageToken!!,
+                    10,
+                    userQuery!!
+                )
                 withContext(Dispatchers.Main) {
-                    Log.d("test", result.toString())
+                    delay(1000)
+                    nextPageToken = videos.nextPageToken.toString()
+                    nextProgress = true
+                    videos.items?.forEach { it ->
+                        videoData.add(
+                            SearchVideoEntity(
+                                it.snippet?.channelTitle.toString(),
+                                it.snippet?.title.toString(),
+                                it.snippet?.thumbnails?.medium?.url.toString(),
+                                it.snippet?.publishedAt.toString(),
+                            )
+                        )
+                    }
+                    videoListAdapter.addDataList(videoData)
+                    binding.searchProgressBar.visibility = View.GONE
+                    nextProgress = true
                 }
             }.onFailure {
-                Log.d("test", "response failed")
+                Log.d("network", "response failed")
+            }
+        }
+    }
+
+    private fun getData(query: String) {
+        val videoData: ArrayList<SearchVideoEntity> = arrayListOf()
+        val channelData: ArrayList<SearchChannelEntity> = arrayListOf()
+        GlobalScope.launch(Dispatchers.IO) {
+            kotlin.runCatching {
+                val videos = SearchRepositoryImpl().getSearchImage(query, "video", 10)
+                val channels = SearchRepositoryImpl().getSearchImage(query, "channel", 1)
+                withContext(Dispatchers.Main) {
+                    nextPageToken = videos.nextPageToken.toString()
+                    nextProgress = true
+                    videos.items?.forEach { it ->
+                        videoData.add(
+                            SearchVideoEntity(
+                                it.snippet?.channelTitle.toString(),
+                                it.snippet?.title.toString(),
+                                it.snippet?.thumbnails?.medium?.url.toString(),
+                                it.snippet?.publishedAt.toString(),
+                            )
+                        )
+                    }
+                    channels.items?.forEach { it ->
+                        channelData.add(
+                            SearchChannelEntity(
+                                it.snippet?.channelTitle.toString(),
+                                it.snippet?.description.toString(),
+                                it.snippet?.thumbnails?.medium?.url.toString(),
+                            )
+                        )
+                    }
+                    channelListAdapter.addDataList(channelData)
+                    videoListAdapter.addDataList(videoData)
+                }
+            }.onFailure {
+                Log.d("network", "response failed")
             }
         }
     }

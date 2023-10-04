@@ -6,33 +6,48 @@
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/item_card_video"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/item_card_channel"
+        android:layout_width="130dp"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/item_img_video"
+            android:id="@+id/item_img_channel"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:contentDescription="@string/search_item_channel_img_desc" />
-
+            android:contentDescription="@string/search_item_channel_img_desc"
+            android:scaleType="fitCenter" />
     </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/item_txt_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/item_card_video"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/item_card_channel"
+        app:layout_constraintTop_toTopOf="@id/item_card_channel" />
 
     <TextView
-        android:id="@+id/item_txt_upload_date"
-        android:layout_width="wrap_content"
+        android:id="@+id/item_txt_description"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/item_card_video"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:layout_marginStart="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/item_card_channel"
         app:layout_constraintTop_toBottomOf="@id/item_txt_name" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:background="@color/light_grey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
