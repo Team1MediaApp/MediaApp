@@ -14,7 +14,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: MainActivityBinding
     private lateinit var currentFragment: Fragment
     private lateinit var fragmentManager: FragmentManager
-    // var like : ArrayList<itemModel(예시)> = ArrayList()
 
     private val homeFragment = HomeFragment()
     private val searchFragment = SearchFragment()
@@ -31,8 +30,8 @@ class MainActivity : AppCompatActivity() {
         val factory = SearchViewModelProviderFactory(searchRepository,this)
         searchViewModel = ViewModelProvider(this,factory)[SearchViewModel::class.java]
 
-//        supportFragmentManager.beginTransaction().replace(R.id.main_frame, HomeFragment()).commit()
-        supportFragmentManager.beginTransaction().replace(R.id.main_frame, MypageFragment()).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.main_frame, HomeFragment()).commit()
+        // supportFragmentManager.beginTransaction().replace(R.id.main_frame, MypageFragment()).commit()
 
         val bottomNav = binding.mainNav
         bottomNav.setOnItemSelectedListener { menuItem ->
@@ -60,14 +59,4 @@ class MainActivity : AppCompatActivity() {
             currentFragment = fragment
         }
     }
-
-    // 좋아요 부분
-    // fun addLike(item: itemModel){
-    //     if(!like.contains(item)) {
-    //        like.add(item)
-    //     }
-    // }
-
-    // fun removeLike(item: itemModel) {
-    //     like.remove(item)
 }

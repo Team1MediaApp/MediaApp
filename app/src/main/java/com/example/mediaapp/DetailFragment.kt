@@ -1,6 +1,8 @@
 package com.example.mediaapp
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import coil.load
 import com.example.mediaapp.data.model.video.Item
+import com.example.mediaapp.data.model.video.Thumbnails
 import com.example.mediaapp.databinding.DetailFragmentBinding
 
 class DetailFragment : Fragment() {
@@ -40,7 +43,6 @@ class DetailFragment : Fragment() {
     }
 
     // 정보 받아오는 부분
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val item = arguments?.getSerializable("Video_data") as Item?
@@ -54,7 +56,7 @@ class DetailFragment : Fragment() {
             url = it.id
         }
 
-        // 뒤로가기 버튼 구현 및 애니메이션
+        // 뒤로가기 버튼 구현 및 화면 전환 시 애니메이션
         binding.detailBtnBack.setOnClickListener {
             val transaction = requireActivity().supportFragmentManager.beginTransaction()
             transaction.setCustomAnimations(
@@ -66,10 +68,33 @@ class DetailFragment : Fragment() {
             transaction.addToBackStack(null)
             transaction.commit()
         }
+
+        // 좋아요 버튼 구현, sharedPreference
+        binding.detailBtnLike.setOnClickListener {
+            val sharedPreferences = requireContext().getSharedPreferences(
+                "pref",
+                Context.MODE_PRIVATE
+            )
+            val editor = sharedPreferences.edit()
+            val like = sharedPreferences.getBoolean("video_liked", false)
+
+            if (!like) {
+                editor.putBoolean("video_liked", true)
+                item?.let {
+                    editor.putString("pref_video_title", it.snippet.title)
+                    editor.putString("pref_video_thumnail", it.snippet.thumbnails.medium.url)
+                }
+            } else {
+                editor.putBoolean("video_liked", false)
+                editor.remove("pref_video_title")
+                editor.remove("pref_video_thumnail")
+            }
+            editor.apply()
+        }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        override fun onDestroyView() {
+            super.onDestroyView()
+            _binding = null
+        }
     }
-}
