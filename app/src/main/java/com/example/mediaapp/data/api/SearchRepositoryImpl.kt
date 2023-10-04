@@ -22,13 +22,14 @@ class SearchRepositoryImpl() : SearchRepository {
 
     override suspend fun getSearchImageByPageToken(
         nextPageToken: String,
-        maxResult: Int
+        maxResult: Int,
+        query: String,
     ): YoutubeSearchResponse = NetworkClient.search.responseSearch(
         Constants.API_KEY,
         "snippet",
         maxResult,
         nextPageToken,
-        null,
+        query,
         null,
         null,
     )

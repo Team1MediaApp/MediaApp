@@ -29,7 +29,7 @@ class SearchChannelListAdapter() :
     class ChannelViewHolder(private val binding: SearchChannelItemBinding) :
         ViewHolder(binding.root) {
         fun bind(item: SearchChannelEntity) = with(binding) {
-            itemImgVideo.load(item.channelImage)
+            itemImgChannel.load(item.channelImage)
             itemTxtName.text = item.channel
             itemTxtDescription.text = item.description
         }

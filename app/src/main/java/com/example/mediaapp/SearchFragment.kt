@@ -26,6 +26,7 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var nextPageToken: String? = null
+    private var userQuery: String? = null
     private var nextProgress: Boolean = true
     private val videoListAdapter by lazy {
         SearchVideoListAdapter()
@@ -69,6 +70,7 @@ class SearchFragment : Fragment() {
                     videoListAdapter.refreshList()
                     channelListAdapter.refreshList()
                     getData(query)
+                    userQuery = query
                 }
                 return false
             }
@@ -81,12 +83,16 @@ class SearchFragment : Fragment() {
 
     private fun getMoreData() {
         nextProgress = false
-        if (nextPageToken.isNullOrBlank()) return
+        if (nextPageToken.isNullOrBlank() && userQuery.isNullOrBlank()) return
         val videoData: ArrayList<SearchVideoEntity> = arrayListOf()
         binding.searchProgressBar.visibility = View.VISIBLE
         GlobalScope.launch(Dispatchers.IO) {
             kotlin.runCatching {
-                val videos = SearchRepositoryImpl().getSearchImageByPageToken(nextPageToken!!, 10)
+                val videos = SearchRepositoryImpl().getSearchImageByPageToken(
+                    nextPageToken!!,
+                    10,
+                    userQuery!!
+                )
                 withContext(Dispatchers.Main) {
                     delay(1000)
                     nextPageToken = videos.nextPageToken.toString()
