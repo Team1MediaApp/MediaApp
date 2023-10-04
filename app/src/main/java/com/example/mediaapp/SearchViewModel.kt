@@ -16,7 +16,7 @@ import retrofit2.Response
 class SearchViewModel(
     private val searchRepository: VideoRepository,
     private val savedStateHandle: SavedStateHandle,
-): ViewModel() {
+) : ViewModel() {
     private val _searchResult = MutableLiveData<SearchResponse>()
     private val _channelSearchResult = MutableLiveData<ChannelResponse>()
     private val _trendingSearchResult = MutableLiveData<SearchResponse>()
@@ -36,7 +36,7 @@ class SearchViewModel(
             } else {
                 val videosErrorBody: ResponseBody? = response.errorBody()
             }
-        }catch (e: Exception){
+        } catch (e: Exception) {
         }
     }
 
