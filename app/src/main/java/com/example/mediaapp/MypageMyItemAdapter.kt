@@ -1,16 +1,16 @@
 package com.example.mediaapp
 
 import android.content.Context
-import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.mediaapp.data.MyDataModel
+import com.example.mediaapp.data.model.video.Item
 import com.example.mediaapp.databinding.MypageItemBinding
 
 
-class MypageMyItemAdapter(var mContext: Context, private val mItems: MutableList<MyDataModel>) :
+class MypageMyItemAdapter(var mContext: Context, private val mItems: MutableList<Item>) :
     RecyclerView.Adapter<MypageMyItemAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -19,15 +19,10 @@ class MypageMyItemAdapter(var mContext: Context, private val mItems: MutableList
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-
         Glide.with(mContext)
-            .load(mItems[position].myThumbnailUrl)
+            .load(mItems[position].snippet.thumbnails.medium.url)
             .into(holder.itemImageView)
-        holder.itemTitle.setText(mItems[position].myTitle)
-    }
-
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
+        holder.itemTitle.setText(mItems[position].snippet.title)
     }
 
     override fun getItemCount(): Int {
