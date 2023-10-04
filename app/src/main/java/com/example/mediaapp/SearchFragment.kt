@@ -112,11 +112,9 @@ class SearchFragment : Fragment() {
             val screenHeight = root.height
             val keypadHeight = rect.bottom - screenHeight
             if (keypadHeight > (screenHeight * 0.25)) {
-                Log.d("test", "show : $userQuery")
                 historyListAdapter.updateData(userQuery)
                 searchRecentQueryList.visibility = View.VISIBLE
             } else {
-                Log.d("test", "hide")
                 searchRecentQueryList.visibility = View.GONE
             }
         }
