@@ -19,6 +19,8 @@ class DetailFragment : Fragment() {
 
     private var url: String? = null
 
+    private var islike = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -70,12 +72,11 @@ class DetailFragment : Fragment() {
         }
 
         // 좋아요 버튼 구현, sharedPreference
+        // 키워드 : 직렬화
+        // 1. sharedPr에서 저장되어있는 값을 가져와서 json형태로 변경 후 data를 넣어준다. (json object 필수... 공부해)
+        // 2. 꺼내 올 때는 sharedPr에서 저장되어있는 값을 Gson을 사용하여 원하는 객체 리스트로 변경하여 사용한다.
         binding.detailBtnLike.setOnClickListener {
-            val sharedPreferences = requireContext().getSharedPreferences(
-                "pref",
-                Context.MODE_PRIVATE
-            )
-            val editor = sharedPreferences.edit()
+
             val like = sharedPreferences.getBoolean("video_liked", false)
 
             if (!like) {
@@ -93,8 +94,8 @@ class DetailFragment : Fragment() {
         }
     }
 
-        override fun onDestroyView() {
-            super.onDestroyView()
-            _binding = null
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
+}
