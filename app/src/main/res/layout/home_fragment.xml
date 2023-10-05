@@ -24,6 +24,7 @@
             android:text="Trending / Top10"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:fontFamily="@font/sdfont"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -47,6 +48,7 @@
             android:layout_height="wrap_content"
             android:hint="카테고리"
             android:textStyle="bold"
+            android:fontFamily="@font/sdfont"
             android:textColorHint="@color/black"
             android:textSize="18sp"
             android:gravity="center"
@@ -88,6 +90,7 @@
             android:text="Channels"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:fontFamily="@font/sdfont"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/home_rcv_category_list" />

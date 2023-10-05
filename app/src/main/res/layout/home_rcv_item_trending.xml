@@ -38,6 +38,7 @@
                 android:background="@drawable/home_trending_shape"
                 android:text="1/10"
                 android:gravity="center"
+                android:fontFamily="@font/sdfont"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />

@@ -75,6 +75,7 @@
             android:textSize="15sp"
             android:textStyle="bold"
             android:textColor="#A6A6A6"
+            android:fontFamily="@font/sdfont"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mypagemodify_img_profile" />
 
@@ -88,6 +89,7 @@
             android:maxLength="10"
             android:paddingStart="10dp"
             android:textSize="12sp"
+            android:fontFamily="@font/sdfont"
             app:layout_constraintBottom_toBottomOf="@+id/mypagemodify_txt_name"
             app:layout_constraintStart_toEndOf="@+id/mypagemodify_txt_name"
             app:layout_constraintTop_toTopOf="@+id/mypagemodify_txt_name"
@@ -99,6 +101,7 @@
             android:layout_height="wrap_content"
             android:text="0/10"
             android:textSize="10sp"
+            android:fontFamily="@font/sdfont"
             app:layout_constraintEnd_toEndOf="@+id/mypagemodify_edit_name"
             app:layout_constraintTop_toBottomOf="@+id/mypagemodify_edit_name" />
 
@@ -112,6 +115,7 @@
             android:textSize="15sp"
             android:textStyle="bold"
             android:textColor="#A6A6A6"
+            android:fontFamily="@font/sdfont"
             app:layout_constraintEnd_toEndOf="@+id/mypagemodify_txt_name"
             app:layout_constraintTop_toBottomOf="@+id/mypagemodify_txt_name" />
 
@@ -125,6 +129,7 @@
             android:maxLength="20"
             android:paddingStart="10dp"
             android:textSize="12sp"
+            android:fontFamily="@font/sdfont"
             app:layout_constraintBottom_toBottomOf="@+id/mypagemodify_txt_status_message"
             app:layout_constraintStart_toEndOf="@+id/mypagemodify_txt_status_message"
             app:layout_constraintTop_toTopOf="@+id/mypagemodify_txt_status_message"
@@ -136,6 +141,7 @@
             android:layout_height="wrap_content"
             android:text="0/20"
             android:textSize="10sp"
+            android:fontFamily="@font/sdfont"
             app:layout_constraintEnd_toEndOf="@+id/mypagemodify_edit_status"
             app:layout_constraintTop_toBottomOf="@+id/mypagemodify_edit_status" />
 
@@ -151,6 +157,7 @@
             android:textColor="#A6A6A6"
             android:textSize="15sp"
             android:textStyle="bold"
+            android:fontFamily="@font/sdfont"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mypagemodify_edit_status" />
 
@@ -195,6 +202,7 @@
                 android:text="저 장"
                 android:textColor="#618782"
                 android:textStyle="bold"
+                android:fontFamily="@font/sdfont"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
