@@ -12,6 +12,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.mediaapp.data.MypageContext
+import com.example.mediaapp.data.model.video.Item
 import com.example.mediaapp.databinding.MypageFragmentBinding
 import java.io.File
 import com.example.mediaapp.util.Util
@@ -65,7 +66,30 @@ class MypageFragment : Fragment(), MypageDialogModifyFragment.OnDataModifiedList
         //★★★★★리사이클러뷰 선언
         val MyRecy = binding.mypageMyRecyclerview
         val items = Util().getPrefBookmarkItems(requireContext())
-        val adapter = MypageMyItemAdapter(requireContext(), items)
+        val adapter = MypageMyItemAdapter(requireContext(), items, object : OnItemClickListener{
+            override fun onItemClick(item: Item) {
+                    val detail = DetailFragment().apply {
+                        arguments = Bundle().apply {
+                            putSerializable("Video_data", item)
+                        }
+                    }
+                val transaction = parentFragmentManager.beginTransaction()
+                //애니메이션 ▽ 적용내용 ▼ beginTranscaction자체는 애니메이션을 적용하는게 아님 // parentFragmentManager자체를 애니메이션화 하는 작업(빌더하는거)
+                //아래는 애니를 어떻게 할건지 동작을 지정해주는 거
+                transaction.setCustomAnimations(
+                        R.anim.anim_right,
+                        R.anim.anim_right_exit,
+                        R.anim.anim_left,
+                        R.anim.anim_left_exit
+                    )
+                //여기 밑에는 프레그먼트를 전환하는작업 (애니 > 원래대로)
+                    transaction.replace(R.id.main_frame, detail)
+                    transaction.addToBackStack(null)
+                    transaction.commit() //commit의 의미는 수정작업을 마쳤다 !! 뭐 이런거임
+                }
+            }
+
+        )
         MyRecy.adapter = adapter
         adapter.notifyDataSetChanged()
 
