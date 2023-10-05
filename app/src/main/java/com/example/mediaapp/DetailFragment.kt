@@ -92,3 +92,7 @@ class DetailFragment : Fragment() {
         _binding = null
     }
 }
+
+
+
+// snippet.thumbnails.(key), statistics.subscriberCount

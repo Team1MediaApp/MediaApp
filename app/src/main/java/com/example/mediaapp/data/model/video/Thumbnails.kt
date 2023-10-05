@@ -2,6 +2,7 @@ package com.example.mediaapp.data.model.video
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Thumbnails(
     @SerializedName("default")
@@ -14,7 +15,7 @@ data class Thumbnails(
     val medium: Medium,
     @SerializedName("standard")
     val standard: Standard
-)
+) :Serializable
 
 data class Standard(
     @SerializedName("height")
@@ -23,7 +24,7 @@ data class Standard(
     val url: String,
     @SerializedName("width")
     val width: Int
-)
+) :Serializable
 
 data class High(
     @SerializedName("height")
@@ -32,7 +33,7 @@ data class High(
     val url: String,
     @SerializedName("width")
     val width: Int
-)
+) :Serializable
 
 data class Medium(
     @SerializedName("height")
@@ -41,7 +42,7 @@ data class Medium(
     val url: String,
     @SerializedName("width")
     val width: Int
-)
+) :Serializable
 
 data class Maxres(
     @SerializedName("height")
@@ -50,7 +51,7 @@ data class Maxres(
     val url: String,
     @SerializedName("width")
     val width: Int
-)
+) :Serializable
 
 data class Default(
     @SerializedName("height")
@@ -59,4 +60,4 @@ data class Default(
     val url: String,
     @SerializedName("width")
     val width: Int
-)
+) :Serializable

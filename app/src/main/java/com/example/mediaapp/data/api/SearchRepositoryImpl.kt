@@ -1,5 +1,6 @@
 package com.example.mediaapp.data.api
 
+import com.example.mediaapp.model.YoutubeChannelResponse
 import com.example.mediaapp.model.YoutubeSearchResponse
 import com.example.mediaapp.util.Constants
 import retrofit2.http.Query
@@ -34,8 +35,6 @@ class SearchRepositoryImpl() : SearchRepository {
         null,
     )
 
-    override suspend fun getSearchChannel(query: String): YoutubeSearchResponse =
-        NetworkClient.search.responseChannels(Constants.API_KEY, "snippet", query)
-
-
+    override suspend fun getSearchChannel(channelID: String): YoutubeChannelResponse =
+        NetworkClient.search.responseChannels(Constants.API_KEY, "snippet.statistics", channelID)
 }
