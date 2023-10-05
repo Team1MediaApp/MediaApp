@@ -11,7 +11,7 @@
         android:layout_height="210dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:padding="3dp">
+        android:padding="8dp">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/mypageItem_madiaImg"
@@ -19,11 +19,11 @@
             android:layout_height="0dp"
             android:scaleType="centerCrop"
             android:src="@drawable/mypage_backgroundprofile"
-            app:riv_corner_radius="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.75"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_corner_radius="8dp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/mypageItem_mediaTitle"
@@ -35,6 +35,7 @@
             android:text="유튭제목따올거에여/유튭제목따올거에여/유튭제목따올거에여/유튭제목따올거에여/"
             android:textSize="12sp"
             android:textStyle="bold"
+            android:fontFamily="@font/sdfont"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mypageItem_madiaImg" />
 

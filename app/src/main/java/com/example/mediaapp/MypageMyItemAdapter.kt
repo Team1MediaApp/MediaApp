@@ -40,4 +40,5 @@ class MypageMyItemAdapter(var mContext: Context, private val mItems: MutableList
         val itemImageView = binding.mypageItemMadiaImg
         val itemTitle = binding.mypageItemMediaTitle
     }
+    // 커밋용
 }
