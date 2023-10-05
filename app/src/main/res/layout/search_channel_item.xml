@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/search_channel_gradation">
 
 
     <androidx.cardview.widget.CardView
@@ -28,6 +29,8 @@
         android:id="@+id/item_txt_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="19sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/item_card_channel"
         app:layout_constraintTop_toTopOf="@id/item_card_channel" />
 
@@ -35,11 +38,11 @@
         android:id="@+id/item_txt_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
         android:ellipsize="end"
         android:maxLines="2"
-        android:layout_marginStart="50dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/item_card_channel"
+        app:layout_constraintStart_toStartOf="@id/item_txt_name"
         app:layout_constraintTop_toBottomOf="@id/item_txt_name" />
 
     <View
