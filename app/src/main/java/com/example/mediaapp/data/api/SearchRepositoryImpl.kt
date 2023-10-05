@@ -36,5 +36,5 @@ class SearchRepositoryImpl() : SearchRepository {
     )
 
     override suspend fun getSearchChannel(channelID: String): YoutubeChannelResponse =
-        NetworkClient.search.responseChannels(Constants.API_KEY, "snippet.statistics", channelID)
+        NetworkClient.search.responseChannels(Constants.API_KEY, "snippet, statistics", channelID)
 }
