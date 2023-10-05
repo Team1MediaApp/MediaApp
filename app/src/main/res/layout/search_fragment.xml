@@ -10,11 +10,10 @@
         android:id="@+id/search_toolbar_appbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@color/mint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/mint"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/detail_img_movie_left"
@@ -31,12 +30,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
+        android:fontFamily="@font/sdfont"
+        android:gravity="center"
         android:text="1V1OVIE"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:gravity="center"
-        android:fontFamily="@font/sdfont"
         app:layout_constraintBottom_toBottomOf="@id/search_toolbar_appbar"
         app:layout_constraintEnd_toEndOf="@id/search_toolbar_appbar"
         app:layout_constraintStart_toStartOf="@id/search_toolbar_appbar"
@@ -62,8 +61,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_toolbar_appbar"
-        app:queryHint="검색할 채널이나 영상 제목"
-        />
+        app:queryHint="검색할 채널이나 영상 제목" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_recent_query_list"
