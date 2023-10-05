@@ -35,6 +35,7 @@
             android:textSize="12sp"
             android:textStyle="bold"
             android:fontFamily="@font/sdfont"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mypageItem_madiaImg" />
 

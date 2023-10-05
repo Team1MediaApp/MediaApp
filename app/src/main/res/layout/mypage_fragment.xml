@@ -162,6 +162,7 @@
                         android:textSize="17sp"
                         android:textStyle="bold"
                         android:fontFamily="@font/sdfont"
+                        android:textColor="@color/black"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -205,6 +206,7 @@
                         android:textSize="17sp"
                         android:textStyle="bold"
                         android:fontFamily="@font/sdfont"
+                        android:textColor="@color/black"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
