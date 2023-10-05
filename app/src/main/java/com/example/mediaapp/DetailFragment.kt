@@ -11,10 +11,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import coil.load
+import com.example.mediaapp.data.api.SearchRepositoryImpl
 import com.example.mediaapp.data.model.video.Item
 import com.example.mediaapp.data.model.video.Thumbnails
 import com.example.mediaapp.databinding.DetailFragmentBinding
+import com.example.mediaapp.model.SearchVideoEntity
 import com.example.mediaapp.util.Util
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DetailFragment : Fragment() {
     private var _binding: DetailFragmentBinding? = null
@@ -57,6 +64,7 @@ class DetailFragment : Fragment() {
                 detailImgThumnail.load(it.snippet.thumbnails.medium.url)
                 detailTxtVideoDetail.text = it.snippet.description
             }
+            getChannelData(it.snippet.channelId)
             url = it.id
         }
 
@@ -87,12 +95,27 @@ class DetailFragment : Fragment() {
         }
     }
 
+    private fun getChannelData(channelId: String) {
+        GlobalScope.launch(Dispatchers.IO) {
+            kotlin.runCatching {
+                val channel = SearchRepositoryImpl().getSearchChannel(channelId)
+                withContext(Dispatchers.Main) {
+                    binding.detailImgChannel.load(channel.items?.get(0)?.snippet?.thumbnails?.medium?.url)
+                    binding.detailTxtChannel.text = channel.items?.get(0)?.snippet?.title
+                    binding.detailTxtChannelSub.text =
+                        channel.items?.get(0)?.statistics?.subscriberCount
+                }
+            }.onFailure {
+                Log.d("network", "response failed")
+            }
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 }
-
 
 
 // snippet.thumbnails.(key), statistics.subscriberCount
