@@ -35,7 +35,6 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = DetailFragmentBinding.inflate(inflater, container, false)
-        shareButton()
         return binding.root
     }
 
@@ -56,6 +55,7 @@ class DetailFragment : Fragment() {
     // 정보 받아오는 부분
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        shareButton()
         val item = arguments?.getSerializable("Video_data") as Item?
         item?.let {
             with(binding) {
@@ -77,15 +77,26 @@ class DetailFragment : Fragment() {
         // 키워드 : 직렬화
         // 1. sharedPr에서 저장되어있는 값을 가져와서 json형태로 변경 후 data를 넣어준다. (json object 필수... 공부해)
         // 2. 꺼내 올 때는 sharedPr에서 저장되어있는 값을 Gson을 사용하여 원하는 객체 리스트로 변경하여 사용한다.
+        if (item != null) {
+            islike = Util().BookmarkCheck(requireContext(), item.snippet.title)
+            if (islike) {
+                binding.detailImgBookmark.setImageResource(R.drawable.detail_img_full_bookmark)
+            } else {
+                binding.detailImgBookmark.setImageResource(R.drawable.detail_img_line_bookmark)
+
+            }
+        }
         binding.detailBtnLike.setOnClickListener {
             item?.let {
-                islike = Util().BookmarkCheck(requireContext(), it.snippet.title)
+
                 if (islike) {
+                    binding.detailImgBookmark.setImageResource(R.drawable.detail_img_line_bookmark)
                     Util().deletePrefItem(requireContext(), it)
                     islike = false
                     Toast.makeText(context, "북마크 취소!", Toast.LENGTH_SHORT).show()
 //                    Log.d("BookmarkLog", "북마크 취소됨: ${it.snippet.title}")
                 } else {
+                    binding.detailImgBookmark.setImageResource(R.drawable.detail_img_full_bookmark)
                     Util().addPrefItem(requireContext(), it)
                     islike = true
                     Toast.makeText(context, "북마크 추가!", Toast.LENGTH_SHORT).show()
