@@ -21,12 +21,13 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:gravity="center_vertical"
-            android:text="Trnding / Top10"
+            android:text="Trending / Top10"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/home_rcv_trending_list"
@@ -35,6 +36,7 @@
             android:orientation="horizontal"
             app:cardCornerRadius="20dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/home_tv_trending"
             tools:listitem="@layout/home_rcv_item_trending" />
@@ -44,6 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="카테고리"
+            android:textStyle="bold"
             android:textColorHint="@color/black"
             android:textSize="18sp"
             android:gravity="center"
@@ -57,6 +60,7 @@
             app:spinner_divider_show="true"
             app:spinner_divider_color="@color/black"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintBottom_toTopOf="@+id/home_rcv_category_list"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/home_rcv_trending_list" />
@@ -65,10 +69,11 @@
             android:id="@+id/home_rcv_category_list"
             android:layout_width="match_parent"
             android:layout_height="212dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@+id/textView2"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/home_rcv_trending_list"
             tools:listitem="@layout/home_rcv_item_category" />
@@ -92,7 +97,7 @@
             android:id="@+id/home_rcv_channel_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="30dp"
             tools:listitem="@layout/home_rcv_item_channel"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
