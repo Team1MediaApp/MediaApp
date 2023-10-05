@@ -31,6 +31,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class SearchFragment : Fragment() {
     private var _binding: SearchFragmentBinding? = null
@@ -132,18 +134,24 @@ class SearchFragment : Fragment() {
                     nextPageToken!!, 10, userQuery[userQuery.size - 1]
                 )
                 withContext(Dispatchers.Main) {
+                    val outputFormat = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")
                     delay(1000)
                     nextPageToken = videos.nextPageToken.toString()
                     nextProgress = true
                     videos.items?.forEach { it ->
+                        val date = LocalDateTime.parse(
+                            it.snippet?.publishedAt.toString(),
+                            DateTimeFormatter.ISO_DATE_TIME
+                        )
                         videoData.add(
                             SearchVideoEntity(
                                 it.snippet?.channelTitle.toString(),
                                 it.snippet?.title.toString(),
                                 it.snippet?.thumbnails?.medium?.url.toString(),
-                                it.snippet?.publishedAt.toString(),
+                                date.format(outputFormat),
                             )
                         )
+                        Log.d("test", it.snippet?.publishedAt.toString().format(outputFormat))
                     }
                     videoListAdapter.addDataList(videoData)
                     binding.searchProgressBar.visibility = View.GONE
@@ -163,15 +171,20 @@ class SearchFragment : Fragment() {
                 val videos = SearchRepositoryImpl().getSearchImage(query, "video", 10)
                 val channels = SearchRepositoryImpl().getSearchImage(query, "channel", 1)
                 withContext(Dispatchers.Main) {
+                    val outputFormat = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")
                     nextPageToken = videos.nextPageToken.toString()
                     nextProgress = true
                     videos.items?.forEach { it ->
+                        val date = LocalDateTime.parse(
+                            it.snippet?.publishedAt.toString(),
+                            DateTimeFormatter.ISO_DATE_TIME
+                        )
                         videoData.add(
                             SearchVideoEntity(
                                 it.snippet?.channelTitle.toString(),
                                 it.snippet?.title.toString(),
                                 it.snippet?.thumbnails?.medium?.url.toString(),
-                                it.snippet?.publishedAt.toString(),
+                                date.format(outputFormat),
                             )
                         )
                     }
@@ -198,7 +211,7 @@ class SearchFragment : Fragment() {
         val gson = Gson()
         val json = gson.toJson(data)
         val editor = sharedPreferences.edit()
-//        editor.remove(SEARCH_PREF_KEY)
+        editor.remove(SEARCH_PREF_KEY)
         editor.putString(SEARCH_PREF_KEY, json)
         editor.apply()
     }
