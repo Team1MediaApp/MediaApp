@@ -1,5 +1,6 @@
 package com.example.mediaapp.data.api
 
+import com.example.mediaapp.model.YoutubeChannelResponse
 import com.example.mediaapp.model.YoutubeSearchResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -21,15 +22,15 @@ interface YoutubeService {
         @Query("key") key: String,
         @Query("part") part: String,
 //        @Query("categoryId") categoryId: String?,
-        @Query("forUsername") channelName: String?,
+//        @Query("forUsername") channelName: String?,
 //        @Query("hl") hl: String?,
-//        @Query("id") channelId: String?,
+        @Query("id") channelId: String?,
 //        @Query("managedByMe") managedByMe: Boolean? = null,
 //        @Query("maxResults") maxResults: Int?,
 //        @Query("mine") mine: Boolean? = null,
 //        @Query("mySubscribers") mySubscribers: Boolean? = null,
 //        @Query("onBehalfOfContentOwner") onBehalfOfContentOwner: String?,
 //        @Query("pageToken") pageToken: String?,
-    ): YoutubeSearchResponse
+    ): YoutubeChannelResponse
 
 }
