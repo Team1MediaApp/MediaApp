@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
             scrollHandler.postDelayed(this, 5000)
         }
     }
-    private var categoryQuery : String? = null
+    private var categoryQuery: String? = null
 
     private var _pageToken: String? = null
     private val pageToken get() = _pageToken!!
@@ -155,26 +155,7 @@ class HomeFragment : Fragment() {
             addOnScrollListener(trendingRcvListener)
         }
 
-        homeChannelRcvAdapter = HomeChannelRcvAdapter(object : ChannelItemClick {
-            override fun onClick(item: ChItem) {
-                Log.d("jina", "homeChannelAdapter: onClick $item")
-                val detail = DetailFragment().apply {
-                    arguments = Bundle().apply {
-                        putSerializable("Video_data", item)
-                    }
-                }
-                val transaction = parentFragmentManager.beginTransaction()
-                transaction.setCustomAnimations(
-                    R.anim.anim_right,
-                    R.anim.anim_right_exit,
-                    R.anim.anim_left,
-                    R.anim.anim_left_exit
-                )
-                transaction.add(R.id.main_frame, detail)
-                transaction.addToBackStack(null)
-                transaction.commit()
-            }
-        })
+        homeChannelRcvAdapter = HomeChannelRcvAdapter()
 
         binding.homeRcvChannelList.apply {
             setHasFixedSize(true)
@@ -224,7 +205,9 @@ class HomeFragment : Fragment() {
                         val itemCount = recyclerView.adapter?.itemCount ?: 0
 
                         if (lastVisibleItemPosition == itemCount - 1) {
-                            searchViewModel.searchYoutubeNextPage(CategoryId.categoryMap[categoryQuery] ?: "1", pageToken)
+                            searchViewModel.searchYoutubeNextPage(
+                                CategoryId.categoryMap[categoryQuery] ?: "1", pageToken
+                            )
                         }
                     }
                     isUserScrolling = false
