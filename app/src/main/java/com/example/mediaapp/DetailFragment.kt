@@ -22,6 +22,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.NumberFormat
+import java.util.Locale
 
 class DetailFragment : Fragment() {
     private var _binding: DetailFragmentBinding? = null
@@ -113,13 +115,19 @@ class DetailFragment : Fragment() {
                 withContext(Dispatchers.Main) {
                     binding.detailImgChannel.load(channel.items?.get(0)?.snippet?.thumbnails?.medium?.url)
                     binding.detailTxtChannel.text = channel.items?.get(0)?.snippet?.title
-                    binding.detailTxtChannelSub.text =
-                        channel.items?.get(0)?.statistics?.subscriberCount
+                    binding.detailTxtChannelSub.text = formatNumber(
+                        channel.items?.get(0)?.statistics?.subscriberCount?.toInt() ?: 0
+                    )
                 }
             }.onFailure {
                 Log.d("network", "response failed")
             }
         }
+    }
+
+    fun formatNumber(number: Int): String {
+        val nf = NumberFormat.getInstance(Locale.getDefault())
+        return nf.format(number)
     }
 
     override fun onDestroyView() {
