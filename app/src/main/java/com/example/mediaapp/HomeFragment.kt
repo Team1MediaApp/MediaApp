@@ -40,6 +40,7 @@ class HomeFragment : Fragment() {
             scrollHandler.postDelayed(this, 5000)
         }
     }
+    private var categoryQuery : String? = null
 
     private var _pageToken: String? = null
     private val pageToken get() = _pageToken!!
@@ -91,6 +92,8 @@ class HomeFragment : Fragment() {
         binding.homeSpnCategorySelect.setOnSpinnerItemSelectedListener<String> { _, _, _, query ->
             searchViewModel.searchYoutube(CategoryId.categoryMap[query] ?: "1", "")
             searchViewModel.searchChannels(query)
+
+            categoryQuery = query
         }
     }
 
@@ -110,8 +113,8 @@ class HomeFragment : Fragment() {
                     R.anim.anim_right,
                     R.anim.anim_right_exit
                 )
-                transaction.replace(R.id.main_frame, detail)
-                transaction.addToBackStack(null)
+                transaction.add(R.id.main_frame, detail)
+                transaction.addToBackStack("HomeFragment")
                 transaction.commit()
             }
         })
@@ -216,7 +219,7 @@ class HomeFragment : Fragment() {
                         val itemCount = recyclerView.adapter?.itemCount ?: 0
 
                         if (lastVisibleItemPosition == itemCount - 1) {
-                            searchViewModel.searchYoutubeNextPage("17", pageToken)
+                            searchViewModel.searchYoutubeNextPage(CategoryId.categoryMap[categoryQuery] ?: "1", pageToken)
                         }
                     }
                     isUserScrolling = false
@@ -240,11 +243,13 @@ class HomeFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         binding.homeSpnCategorySelect.dismiss()
+        Log.d("xxxx", "Home pause : ")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         scrollHandler.removeCallbacksAndMessages(null)
         _binding = null
+        Log.d("xxxx", "Home Destroyed: ")
     }
 }
