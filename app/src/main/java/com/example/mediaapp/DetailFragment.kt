@@ -25,8 +25,7 @@ class DetailFragment : Fragment() {
     private var islike = false
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = DetailFragmentBinding.inflate(inflater, container, false)
         shareButton()
@@ -63,13 +62,7 @@ class DetailFragment : Fragment() {
 
         // 뒤로가기 버튼 구현 및 화면 전환 시 애니메이션
         binding.detailBtnBack.setOnClickListener {
-            val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.setCustomAnimations(
-                R.anim.anim_left,
-                R.anim.anim_left_exit
-            )
-            transaction.replace(R.id.detail_framelayout, HomeFragment())
-            transaction.commit()
+            requireActivity().supportFragmentManager.popBackStack()
         }
 
         // 좋아요 버튼 구현, sharedPreference
@@ -78,7 +71,7 @@ class DetailFragment : Fragment() {
         // 2. 꺼내 올 때는 sharedPr에서 저장되어있는 값을 Gson을 사용하여 원하는 객체 리스트로 변경하여 사용한다.
         binding.detailBtnLike.setOnClickListener {
             item?.let {
-                islike = Util().BookmarkCheck(requireContext(),it.snippet.title)
+                islike = Util().BookmarkCheck(requireContext(), it.snippet.title)
                 if (islike) {
                     Util().deletePrefItem(requireContext(), it)
                     islike = false
