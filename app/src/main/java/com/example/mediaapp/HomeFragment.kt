@@ -46,8 +46,7 @@ class HomeFragment : Fragment() {
     private val pageToken get() = _pageToken!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = HomeFragmentBinding.inflate(inflater, container, false)
         return binding.root
@@ -111,10 +110,12 @@ class HomeFragment : Fragment() {
                 val transaction = parentFragmentManager.beginTransaction()
                 transaction.setCustomAnimations(
                     R.anim.anim_right,
-                    R.anim.anim_right_exit
+                    R.anim.anim_right_exit,
+                    R.anim.anim_left,
+                    R.anim.anim_left_exit
                 )
                 transaction.add(R.id.main_frame, detail)
-                transaction.addToBackStack("HomeFragment")
+                transaction.addToBackStack(null)
                 transaction.commit()
             }
         })
@@ -136,9 +137,11 @@ class HomeFragment : Fragment() {
                 val transaction = parentFragmentManager.beginTransaction()
                 transaction.setCustomAnimations(
                     R.anim.anim_right,
-                    R.anim.anim_right_exit
+                    R.anim.anim_right_exit,
+                    R.anim.anim_left,
+                    R.anim.anim_left_exit
                 )
-                transaction.replace(R.id.main_frame, detail)
+                transaction.add(R.id.main_frame, detail)
                 transaction.addToBackStack(null)
                 transaction.commit()
             }
@@ -163,9 +166,11 @@ class HomeFragment : Fragment() {
                 val transaction = parentFragmentManager.beginTransaction()
                 transaction.setCustomAnimations(
                     R.anim.anim_right,
-                    R.anim.anim_right_exit
+                    R.anim.anim_right_exit,
+                    R.anim.anim_left,
+                    R.anim.anim_left_exit
                 )
-                transaction.replace(R.id.main_frame, detail)
+                transaction.add(R.id.main_frame, detail)
                 transaction.addToBackStack(null)
                 transaction.commit()
             }
