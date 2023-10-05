@@ -111,7 +111,6 @@ class HomeFragment : Fragment() {
                     R.anim.anim_right_exit
                 )
                 transaction.replace(R.id.main_frame, detail)
-                transaction.addToBackStack(null)
                 transaction.commit()
             }
         })
@@ -136,7 +135,6 @@ class HomeFragment : Fragment() {
                     R.anim.anim_right_exit
                 )
                 transaction.replace(R.id.main_frame, detail)
-                transaction.addToBackStack(null)
                 transaction.commit()
             }
         })
@@ -163,7 +161,6 @@ class HomeFragment : Fragment() {
                     R.anim.anim_right_exit
                 )
                 transaction.replace(R.id.main_frame, detail)
-                transaction.addToBackStack(null)
                 transaction.commit()
             }
         })

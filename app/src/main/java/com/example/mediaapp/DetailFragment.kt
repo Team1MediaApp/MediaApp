@@ -69,7 +69,6 @@ class DetailFragment : Fragment() {
                 R.anim.anim_left_exit
             )
             transaction.replace(R.id.detail_framelayout, HomeFragment())
-            transaction.addToBackStack(null)
             transaction.commit()
         }
 
