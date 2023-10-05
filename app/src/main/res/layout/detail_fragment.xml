@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".DetailFragment">
+    tools:context=".DetailFragment"
+    >
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,8 +41,10 @@
             android:layout_marginHorizontal="10dp"
             android:text="1V1OVIE"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textStyle="bold"
+            android:gravity="center"
+            android:fontFamily="@font/sdfont"
             app:layout_constraintBottom_toBottomOf="@id/detail_view"
             app:layout_constraintEnd_toEndOf="@id/detail_view"
             app:layout_constraintStart_toStartOf="@id/detail_view"
@@ -88,8 +91,21 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:fontFamily="@font/sdfont"
             app:layout_constraintStart_toEndOf="@id/detail_img_channel"
             app:layout_constraintTop_toTopOf="@id/detail_img_channel" />
+
+        <TextView
+            android:id="@+id/detail_txt_channel_sub_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:text="구독자수"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:fontFamily="@font/sdfont"
+            app:layout_constraintStart_toStartOf="@id/detail_txt_channel"
+            app:layout_constraintTop_toBottomOf="@id/detail_txt_channel" />
 
         <TextView
             android:id="@+id/detail_txt_channel_sub"
@@ -99,9 +115,12 @@
             android:text="1.0K"
             android:textColor="@color/black"
             android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/detail_txt_channel"
-            app:layout_constraintTop_toBottomOf="@id/detail_txt_channel" />
+            android:fontFamily="@font/sdfont"
+            android:layout_marginStart="5dp"
+            app:layout_constraintTop_toTopOf="@id/detail_txt_channel_sub_info"
+            app:layout_constraintBottom_toBottomOf="@id/detail_txt_channel_sub_info"
+            app:layout_constraintStart_toEndOf="@id/detail_txt_channel_sub_info"
+            />
 
         <View
             android:id="@+id/detail_line_top"
@@ -144,6 +163,7 @@
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"
+                    android:fontFamily="@font/sdfont"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -155,8 +175,8 @@
                     android:text="조회수"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:textStyle="bold"
                     android:paddingStart="20dp"
+                    android:fontFamily="@font/sdfont"
                     app:layout_constraintStart_toStartOf="@id/detail_txt_video_title"
                     app:layout_constraintTop_toBottomOf="@id/detail_txt_video_title" />
 
@@ -167,7 +187,7 @@
                     android:text="1.0K"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/sdfont"
                     android:layout_marginStart="5dp"
                     app:layout_constraintStart_toEndOf="@id/detail_txt_video_view_info"
                     app:layout_constraintTop_toTopOf="@id/detail_txt_video_view_info"
@@ -191,7 +211,7 @@
                     android:text="video Detail"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/sdfont"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/detail_txt_video_view"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -219,6 +239,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:fontFamily="@font/sdfont"
             app:layout_constraintBottom_toBottomOf="@id/detail_btn_like"
             app:layout_constraintEnd_toEndOf="@id/detail_btn_like"
             app:layout_constraintStart_toStartOf="@id/detail_btn_like"
@@ -254,6 +275,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:fontFamily="@font/sdfont"
             app:layout_constraintBottom_toBottomOf="@id/detail_btn_share"
             app:layout_constraintEnd_toEndOf="@id/detail_btn_share"
             app:layout_constraintStart_toStartOf="@id/detail_btn_share"

@@ -30,14 +30,17 @@
 
             <TextView
                 android:id="@+id/home_tv_trending_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
                 android:layout_gravity="bottom|end"
-                android:layout_marginEnd="8dp"
-                android:background="@color/light_grey"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/home_trending_shape"
                 android:text="1/10"
-                android:textColor="@color/white"
-                android:textSize="20sp"
+                android:gravity="center"
+                android:fontFamily="@font/sdfont"
+                android:textColor="@color/black"
+                android:textSize="18sp"
                 android:textStyle="bold" />
         </FrameLayout>
     </androidx.cardview.widget.CardView>
