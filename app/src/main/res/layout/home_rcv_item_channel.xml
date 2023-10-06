@@ -18,6 +18,7 @@
         android:fontFamily="@font/sdfont"
         android:maxLines="1"
         android:ellipsize="marquee"
+        android:textColor="@color/black"
         android:background="@color/theme_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

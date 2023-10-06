@@ -168,31 +168,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/detail_txt_video_view_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="조회수"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:paddingStart="20dp"
-                    android:fontFamily="@font/sdfont"
-                    app:layout_constraintStart_toStartOf="@id/detail_txt_video_title"
-                    app:layout_constraintTop_toBottomOf="@id/detail_txt_video_title" />
-
-                <TextView
-                    android:id="@+id/detail_txt_video_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1.0K"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/sdfont"
-                    android:layout_marginStart="5dp"
-                    app:layout_constraintStart_toEndOf="@id/detail_txt_video_view_info"
-                    app:layout_constraintTop_toTopOf="@id/detail_txt_video_view_info"
-                    app:layout_constraintBottom_toBottomOf="@id/detail_txt_video_view_info"
-                    />
 
                 <View
                     android:id="@+id/detail_line_bottom"
@@ -200,7 +175,7 @@
                     android:layout_height="5dp"
                     android:layout_marginVertical="10dp"
                     android:background="@color/mint"
-                    app:layout_constraintTop_toBottomOf="@id/detail_txt_video_view" />
+                    app:layout_constraintTop_toBottomOf="@id/detail_txt_video_title" />
 
                 <TextView
                     android:id="@+id/detail_txt_video_detail"
@@ -213,7 +188,7 @@
                     android:textSize="14sp"
                     android:fontFamily="@font/sdfont"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/detail_txt_video_view"
+                    app:layout_constraintTop_toBottomOf="@id/detail_txt_video_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     />
             </androidx.constraintlayout.widget.ConstraintLayout>
