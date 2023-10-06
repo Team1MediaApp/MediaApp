@@ -33,6 +33,7 @@ class HomeFragment : Fragment() {
 
     private var isUserScrolling = false
 
+    // Auto Scroll / Handler 객체 생성
     private var scrollHandler = Handler(Looper.getMainLooper())
     private val scrollRunnable = object : Runnable {
         override fun run() {
@@ -40,8 +41,11 @@ class HomeFragment : Fragment() {
             scrollHandler.postDelayed(this, 5000)
         }
     }
+
+    // CategoryQuery 를 Fragment 전역에서 사용할 수 있도록 지정
     private var categoryQuery: String? = null
 
+    // PageToken 을 Fragment 전역에서 사용할 수 있도록 지정
     private var _pageToken: String? = null
     private val pageToken get() = _pageToken!!
 
@@ -71,9 +75,11 @@ class HomeFragment : Fragment() {
 
         searchViewModel.searchResult.observe(viewLifecycleOwner) { response ->
             val result: List<Item> = response.items
+            // Rcv 마지막 Position에 Scroll이 위치할 경우 다음 페이지의 Item 을 받아오기 위해 _pageToken에 nextPage 값 할당.
             _pageToken = response.nextPageToken
 
             homeCategoryRcvViewAdapter.submitList(result)
+            // 현재 화면에 그려지는 데이터셋에서는 Rcv가 자동으로 새로고침이 되지 않기 때문에 Data를 새로고침 해준다.
             homeCategoryRcvViewAdapter.notifyDataSetChanged()
         }
 
@@ -83,11 +89,13 @@ class HomeFragment : Fragment() {
             homeChannelRcvAdapter.submitList(result)
         }
 
+        // Auto Scroll 적용
         scrollHandler.postDelayed(scrollRunnable, 5000)
     }
 
     private fun searchCategory() {
 
+        // Spinner 를 통해 변경되는 CategoryQuery 값을 받아 API 호출
         binding.homeSpnCategorySelect.setOnSpinnerItemSelectedListener<String> { _, _, _, query ->
             searchViewModel.searchYoutube(CategoryId.categoryMap[query] ?: "1", "")
             searchViewModel.searchChannels(query)
@@ -216,6 +224,7 @@ class HomeFragment : Fragment() {
         }
     }
 
+    // Trending Rcv의 Scroll이 자동으로 순환하는 함수 정의
     private fun autoScroll() {
         val layoutManager = binding.homeRcvTrendingList.layoutManager as LinearLayoutManager
         val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
@@ -230,14 +239,14 @@ class HomeFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
+        // Spinner를 펼친 상태에서 다른 Fragment로 이동 시 Spinner가 닫히도록 함.
         binding.homeSpnCategorySelect.dismiss()
-        Log.d("xxxx", "Home pause : ")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        // Auto Scroll Handler 제거
         scrollHandler.removeCallbacksAndMessages(null)
         _binding = null
-        Log.d("xxxx", "Home Destroyed: ")
     }
 }
